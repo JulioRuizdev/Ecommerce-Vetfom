@@ -1,7 +1,7 @@
 export default function (){
     return (
         <div>
-            <h1>nosotros page</h1>
+            <h1>Nosotros page</h1>
         </div>
     )
 }

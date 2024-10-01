@@ -1,12 +1,17 @@
 import Image from "next/image";
 import { titleFont } from "../config/fonts";
+import { Title } from "@/components";
 
 export default function Home() {
   return (
-    <main className="">
-      <h1>Hola mundo</h1>
-      <h1 className={`${titleFont.className} font-bold`}>Hola mundo</h1>
-    </main>
+    <>
+    <Title 
+      title="Tienda"
+      subtitle="Todos los Productos"
+      className="mb-2"
+    />
+    
+    </>
 
   );
 }
