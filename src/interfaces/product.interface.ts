@@ -4,13 +4,14 @@ export interface Product {
     images: string[];
     inStock: number;
     price: number;
-    sizes: ValidSizes[];
+    sizes: Size[];
     slug: string;
     tags: string[];
     title: string;
-    type: ValidTypes;
-    section: 'food'|'toy'|'article'|'medecine'
+    type: Types;
+    section: Category;
 }
 
-export type ValidSizes = '500 gr'|'1 KG'|'2 KG'|'5 KG'|'10 KG';
-export type ValidTypes = 'cat'|'dog'|'chicken'|'other';
+export type Category = 'food'|'toy'|'article'|'medicine';
+export type Size = '500 gr'|'1 KG'|'2 KG'|'5 KG'|'10 KG';
+export type Types = 'cat'|'dog'|'chicken'|'other';

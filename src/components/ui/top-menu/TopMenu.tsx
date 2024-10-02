@@ -24,7 +24,7 @@ export const TopMenu = () => {
                 <Link className='m-2 p-2 rounded-md transition-all hover:bg-gray-100' href="/category/food">Comidas</Link>
                 <Link className='m-2 p-2 rounded-md transition-all hover:bg-gray-100' href="/category/toy">Juguetes</Link>
                 <Link className='m-2 p-2 rounded-md transition-all hover:bg-gray-100' href="/category/article">Articulos</Link>
-                <Link className='m-2 p-2 rounded-md transition-all hover:bg-gray-100' href="/category/medecine">Medicamentos</Link>
+                <Link className='m-2 p-2 rounded-md transition-all hover:bg-gray-100' href="/category/medicine">Medicamentos</Link>
                 <Link className='m-2 p-2 rounded-md transition-all hover:bg-green-200' href="/about/">Sobre Nosotros</Link>
 
             </div>

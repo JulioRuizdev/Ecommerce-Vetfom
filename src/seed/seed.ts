@@ -1,18 +1,20 @@
-interface Product {
+export interface Product {
+    //Todo: id: string;
     description: string;
     images: string[];
     inStock: number;
     price: number;
-    sizes: ValidSizes[];
+    sizes: Size[];
     slug: string;
     tags: string[];
     title: string;
-    type: ValidTypes;
-    section: 'food' | 'toy' | 'article' | 'medicine';
+    type: Types;
+    section: Category;
 }
 
-type ValidSizes = '500 gr' | '1 KG' | '2 KG' | '5 KG' | '10 KG';
-type ValidTypes = 'cat' | 'dog' | 'bird' | 'other';
+export type Category = 'food'|'toy'|'article'|'medicine';
+export type Size = '500 gr'|'1 KG'|'2 KG'|'5 KG'|'10 KG';
+export type Types = 'cat'|'dog'|'chicken'|'other';
 
 interface SeedData {
     products: Product[];
@@ -43,54 +45,6 @@ export const initialData: SeedData = {
             title: "Ricocat",
             type: 'cat',
             section: 'food'
-        },
-        {
-            description: "Super Cat premium cat food, with high-quality proteins.",
-            images: ['comida_03.jpg'],
-            inStock: 5,
-            price: 54.9,
-            sizes: ['500 gr', '1 KG'],
-            slug: "super_cat",
-            tags: ['cat', 'food'],
-            title: "Super Cat",
-            type: 'cat',
-            section: 'food'
-        },
-        {
-            description: "Ricocan balanced food for dogs, ideal for dogs of all ages.",
-            images: ['comida_04.jpg'],
-            inStock: 7,
-            price: 54.9,
-            sizes: ['1 KG', '2 KG'],
-            slug: "ricocan",
-            tags: ['dog', 'food'],
-            title: "Ricocan",
-            type: 'dog',
-            section: 'food'
-        },
-        {
-            description: "Whiskas cat food made with natural ingredients and delicious taste.",
-            images: ['comida_05.jpg'],
-            inStock: 12,
-            price: 54.9,
-            sizes: ['500 gr', '1 KG'],
-            slug: "whiskas",
-            tags: ['cat', 'food'],
-            title: "Whiskas",
-            type: 'cat',
-            section: 'food'
-        },
-        {
-            description: "Bone toy for dogs, ideal to keep your pet active and happy.",
-            images: ['juguete_01.jpg'],
-            inStock: 20,
-            price: 39.9,
-            sizes: ['500 gr'],
-            slug: "bone_toy",
-            tags: ['dog', 'toy'],
-            title: "Bone Toy",
-            type: 'dog',
-            section: 'toy'
         },
         {
             description: "Rico Crack biscuits, a delicious and crunchy snack for your dog.",
@@ -129,6 +83,18 @@ export const initialData: SeedData = {
             section: 'food'
         },
         {
+            description: "Super Cat premium cat food, with high-quality proteins.",
+            images: ['comida_03.jpg'],
+            inStock: 5,
+            price: 54.9,
+            sizes: ['500 gr', '1 KG'],
+            slug: "super_cat",
+            tags: ['cat', 'food'],
+            title: "Super Cat",
+            type: 'cat',
+            section: 'food'
+        },
+        {
             description: "Toy mouse for cats, helps stimulate their natural instincts.",
             images: ['juguete_02.jpg'],
             inStock: 30,
@@ -163,6 +129,91 @@ export const initialData: SeedData = {
             title: "Leather Collar",
             type: 'dog',
             section: 'article'
+        },
+
+        {
+            description: "Medicine 1 for pets, helps treat specific health conditions.",
+            images: ['medicina_01.png'],
+            inStock: 15,
+            price: 99.9,
+            sizes: ['500 gr'],
+            slug: "medicine_01",
+            tags: ['medicine', 'health'],
+            title: "Medicine 1",
+            type: 'dog',
+            section: 'medicine'
+        },
+        {
+            description: "Medicine 2, perfect for supporting your pet's immune system.",
+            images: ['medicina_02.jpg'],
+            inStock: 20,
+            price: 89.9,
+            sizes: ['500 gr'],
+            slug: "medicine_02",
+            tags: ['medicine', 'health'],
+            title: "Medicine 2",
+            type: 'cat',
+            section: 'medicine'
+        },
+        {
+            description: "Medicine 3 for cats and dogs, ideal for digestive issues.",
+            images: ['medicina_03.jpg'],
+            inStock: 18,
+            price: 79.9,
+            sizes: ['500 gr'],
+            slug: "medicine_03",
+            tags: ['medicine', 'health'],
+            title: "Medicine 3",
+            type: 'dog',
+            section: 'medicine'
+        },
+        {
+            description: "Medicine 4, improves joint health in pets.",
+            images: ['medicina_04.jpg'],
+            inStock: 10,
+            price: 59.9,
+            sizes: ['500 gr'],
+            slug: "medicine_04",
+            tags: ['medicine', 'health'],
+            title: "Medicine 4",
+            type: 'dog',
+            section: 'medicine'
+        },
+        {
+            description: "Medicine 5, designed to enhance heart health in pets.",
+            images: ['medicina_05.jpg'],
+            inStock: 25,
+            price: 99.9,
+            sizes: ['500 gr'],
+            slug: "medicine_05",
+            tags: ['medicine', 'health'],
+            title: "Medicine 5",
+            type: 'cat',
+            section: 'medicine'
+        },
+        {
+            description: "Medicine 6 for respiratory issues, suitable for cats and dogs.",
+            images: ['medicina_06.png'],
+            inStock: 12,
+            price: 109.9,
+            sizes: ['500 gr'],
+            slug: "medicine_06",
+            tags: ['medicine', 'health'],
+            title: "Medicine 6",
+            type: 'dog',
+            section: 'medicine'
+        },
+        {
+            description: "Medicine 7, an all-in-one solution for common pet ailments.",
+            images: ['medicina_07.jpg'],
+            inStock: 30,
+            price: 69.9,
+            sizes: ['500 gr'],
+            slug: "medicine_07",
+            tags: ['medicine', 'health'],
+            title: "Medicine 7",
+            type: 'dog',
+            section: 'medicine'
         }
     ]
 };
