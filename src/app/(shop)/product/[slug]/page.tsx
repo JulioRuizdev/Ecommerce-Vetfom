@@ -1,5 +1,5 @@
 import { titleFont } from "@/app/config/fonts";
-import { QuantitySelector } from "@/components";
+import { ProductSlidshow, QuantitySelector } from "@/components";
 import { initialData } from "@/seed/seed";
 import { notFound } from "next/navigation";
 
@@ -23,8 +23,12 @@ export default function ( {params}: Props){
 
     return (
         <div className="mt-5 mb-20 grid md:grid-cols-3 gap-3">
-            <div className="col-span-1 md:col-span-2 "> 
-                Hola
+            
+            <div className="col-span-1 md:col-span-2"> 
+                <ProductSlidshow 
+                    title={product.title}
+                    images={product.images}
+                />
             </div>
 
             <div className="col-span-1 px-5">
@@ -38,7 +42,7 @@ export default function ( {params}: Props){
 
                 {/* <Selector de cantida /> */}
                 <QuantitySelector 
-                    quantity={2}
+                    quantity={1}
                 />
 
 

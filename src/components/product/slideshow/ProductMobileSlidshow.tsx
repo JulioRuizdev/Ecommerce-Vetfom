@@ -22,7 +22,7 @@ interface Props{
 }
 
 
-export const ProductSlidshow = ({images, title, className}:Props) =>{
+export const ProductMobileSlidshow = ({images, title, className}:Props) =>{
   
   const [thumbsSwiper, setThumbsSwiper] = useState<SwiperObject>();
   
