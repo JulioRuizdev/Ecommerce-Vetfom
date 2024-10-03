@@ -1,4 +1,5 @@
 import { ProductGrid, Title } from '@/components';
+import { Category } from '@/interfaces';
 import { initialData } from '@/seed/seed';
 import {notFound} from 'next/navigation';
 
@@ -7,7 +8,7 @@ const seedProducts = initialData.products;
 
 interface Props{
     params: {
-        id: string;
+        id: Category;
     }
 }
 
@@ -18,7 +19,7 @@ export default function ( {params}: Props){
     const {id} = params;
     const products = seedProducts.filter( product => product.section === id);
 
-    const labels = {
+    const labels: Record<Category, string> = {
         food: 'Comidas',
         toy: 'Juguetes',
         article: 'Articulos',
@@ -33,7 +34,7 @@ export default function ( {params}: Props){
     return (
         <>
         <Title 
-          title={ `${(labels as any)[id]}` }
+          title={ `${labels[id]}` }
           subtitle="Todos los Productos"
           className="mb-2"
         />

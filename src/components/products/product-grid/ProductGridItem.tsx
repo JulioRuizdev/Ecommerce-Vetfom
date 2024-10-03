@@ -21,7 +21,7 @@ export const ProductGridItem = ({ product }: Props) => {
                     className="max-w-80 max-h-80 object-cover px-2 sm:px-4 md:px-6 rounded"
                     width={500}
                     height={500}
-                    onMouseEnter={() => product.images[1] && setDisplayImage(product.images[1])}
+                    onMouseEnter={() => setDisplayImage(product.images[1])}
                     onMouseLeave={() => setDisplayImage(product.images[0])}
                 />
             </Link>
