@@ -1,7 +1,7 @@
-import { Title } from '@/components';
 import Link from 'next/link';
+import { Title } from '@/components';
 
-export default function NamePage() {
+export default function () {
   return (
     <div className="flex flex-col sm:justify-center sm:items-center mb-72 px-10 sm:px-0">
 
@@ -69,7 +69,7 @@ export default function NamePage() {
               className="p-2 border rounded-md bg-gray-200"
             >
               <option value="">[ Seleccione ]</option>
-              <option value="CRI">Costa Rica</option>
+              <option value="PER">Peru</option>
             </select>
           </div>
 
