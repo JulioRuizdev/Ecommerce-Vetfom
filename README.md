@@ -26,6 +26,8 @@ npx prisma init --datasource-provider PostgreSQL
 npx prisma migrate dev --name {nombre de la migracion}
 npx prisma migrate dev
 
+8.- ejecutar el seed `npm run seed`
+
 ## Integrantes:
 
 - Julio Cesar Ruiz Cardenas
