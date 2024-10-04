@@ -14,4 +14,9 @@ Proyecto hecho en nextjs
 ## Integrantes:
 
 - Julio Cesar Ruiz Cardenas
+- Jesus Cabrera
+- Rogelio
+-
+-
+-
 -
