@@ -12,7 +12,7 @@ export interface Product {
 }
 
 export type Category = 'food'|'toy'|'article'|'medicine';
-export type Types = 'cat'|'dog'|'chicken'|'other';
+export type Types = 'cat'|'dog'|'bird'|'other';
 
 interface SeedData {
     products: Product[];
