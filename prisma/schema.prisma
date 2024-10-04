@@ -22,9 +22,9 @@ enum Types {
 
 enum Section {
   food
-  toys
-  accessories
-  other
+  toy
+  article
+  medicine
 }
 
 model Category {
@@ -34,15 +34,14 @@ model Category {
 }
 
 model Product {
-  id          String   @id @default(uuid())
-  description String
-  inStock     Int
-  price       Float    @default(0)
-  slug        String   @unique
-  tags        String[] @default([])
-  type        Types
-  section     Section
-
+  id           String         @id @default(uuid())
+  title        String // Agrega la propiedad 'title'
+  description  String
+  inStock      Int
+  price        Float          @default(0)
+  slug         String         @unique
+  tags         String[]       @default([])
+  section      Section
   category     Category       @relation(fields: [categoryId], references: [id])
   categoryId   String
   ProductImage ProductImage[]
