@@ -34,7 +34,7 @@ export const Sidebar = () => {
 
         <nav className={ 
             clsx(
-                "fixed left-0 mr-2 top-0 w-[400px] h-screen bg-white z-20 shadow-2xl transform transition-all duration-300",
+                "fixed p-5 right-0 top-0 w-[400px] h-screen bg-white z-20 shadow-2xl transform transition-all duration-300",
                 {
                     "translate-x-full": !isSideMenuOpen,
                 }
@@ -42,7 +42,7 @@ export const Sidebar = () => {
         }>
             <IoCloseOutline 
                 size={50}
-                className="absolute top-2 right-6 cursor-pointer p-3"
+                className="absolute top-5 right-5 cursor-pointer"
                 onClick={ () => closeMenu() }
             />
 
