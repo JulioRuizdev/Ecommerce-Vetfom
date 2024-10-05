@@ -1,9 +1,7 @@
 import {initialData} from './seed';
 import prisma from '../lib/prisma';
 
-interface Abc{
-    assd: String;
-}
+
 
 async function main() {
 

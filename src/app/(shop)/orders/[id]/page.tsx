@@ -1,8 +1,8 @@
-import { QuantitySelector, Title } from "@/components";
+import { Title } from "@/components";
 import { initialData } from "@/seed/seed";
 import clsx from "clsx";
 import Image from "next/image";
-import Link from "next/link";
+
 import { IoCarOutline } from "react-icons/io5";
 
 
@@ -20,7 +20,7 @@ interface Props {
     }
 }
 
-export default function ({params}: Props){
+export default function OrdersPage({params}: Props){
 
     const {id} = params;
 
