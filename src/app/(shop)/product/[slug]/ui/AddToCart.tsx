@@ -4,6 +4,7 @@ import { QuantitySelector } from "@/components"
 import type { CartProduct, Product } from "@/interfaces"
 import { useCartStore } from "@/store";
 import { useState } from "react";
+import { toast } from "react-toastify";
 
 interface Props{
     product: Product;
@@ -39,9 +40,12 @@ export const AddToCart=({product}: Props) => {
         />
 
         <button 
-            onClick={ addToCart} 
+            onClick={() => {
+            addToCart();
+            toast.success('Producto agregado al carrito');
+            }} 
             className="btn-primary my-5">
-                Agregar al carrito
+            Agregar al carrito
         </button>
     </>
   )
