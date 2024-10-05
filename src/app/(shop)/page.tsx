@@ -7,11 +7,10 @@ import { getPaginatedProductsWithImages } from "@/actions";
 
 
 
-const products = initialData.products;
 
 export default async function Home() {
 
-  const productsTemp  = await getPaginatedProductsWithImages();
+  const {products} = await getPaginatedProductsWithImages();
 
 
   return (
