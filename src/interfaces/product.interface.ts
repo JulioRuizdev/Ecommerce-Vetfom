@@ -18,7 +18,7 @@ export interface CartProduct{
     title: string;
     price: number;
     quantity: number;
-    images: string;
+    image: string;
 }
 
 export type Category = 'food'|'toy'|'article'|'medicine';
