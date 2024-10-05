@@ -9,11 +9,11 @@ async function main() {
 
 
     //borrar los registros de la base de datos
-    await Promise.all([
-        prisma.productImage.deleteMany(),
-        prisma.product.deleteMany(),
-        prisma.category.deleteMany(),
-    ]);
+    // await Promise.all([
+       await prisma.productImage.deleteMany();
+       await prisma.product.deleteMany();
+       await prisma.category.deleteMany();
+    // ]);
 
     const {products, categories} = initialData;
 
