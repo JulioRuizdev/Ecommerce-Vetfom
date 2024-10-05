@@ -6,6 +6,7 @@ import { ProductMobileSlidshow, ProductSlidshow, QuantitySelector, StockLabel } 
 import { Metadata, ResolvingMetadata } from "next";
 
 import { notFound } from "next/navigation";
+import { AddToCart } from "./ui/AddToCart";
 
 
 interface Props {
@@ -87,17 +88,14 @@ export default async function ProductSlugPage( {params}: Props){
                 S/ {product.price}
                 </p>
 
-                {/* <Selector de cantida /> */}
-                <QuantitySelector 
-                    quantity={1}
-                />
+
+                <AddToCart product={product}/>
 
 
-
-
-                <button className="btn-primary my-5">
+                {/* <button 
+                    className="btn-primary my-5">
                     Agregar al carrito
-                </button>
+                </button> */}
 
                 <h3 className="font-bold text-sm"> Descripcion</h3>
                 <p className="font-light"> {product.description}</p>
