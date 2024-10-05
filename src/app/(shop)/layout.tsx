@@ -1,4 +1,6 @@
 import { Footer, Sidebar, TopMenu } from "@/components";
+import { ToastContainer } from 'react-toastify'
+import "react-toastify/dist/ReactToastify.css"
 
 
 export default function ShopLayout({
@@ -17,6 +19,7 @@ export default function ShopLayout({
             </div>
 
             <Footer />
+            <ToastContainer />
         </main>
     );
 }

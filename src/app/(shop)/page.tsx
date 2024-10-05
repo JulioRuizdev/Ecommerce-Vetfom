@@ -3,6 +3,8 @@ export const revalidate = 60;
 import { Pagination, ProductGrid, Title } from "@/components";
 import { getPaginatedProductsWithImages } from "@/actions";
 import { redirect } from "next/navigation";
+import { ToastContainer } from 'react-toastify'
+import "react-toastify/dist/ReactToastify.css"
 
 
 interface Props{
@@ -37,7 +39,11 @@ export default async function Home( {searchParams}: Props ) {
     />
 
     <Pagination totalPages={totalPages}/>
+
+    <ToastContainer />
     </>
+
+
 
   );
 }
