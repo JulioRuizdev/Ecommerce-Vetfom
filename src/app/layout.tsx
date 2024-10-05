@@ -18,7 +18,10 @@ const geistMono = localFont({
 
 
 export const metadata: Metadata = {
-  title: "Vetfom Shop",
+  title: {
+    template: '%s - Vetfom | Shop',
+    default: 'Home - Vetfom | Shop', 
+  },
   description: "Una tienda de productos para mascotas",
 };
 
