@@ -51,10 +51,20 @@ async function main() {
                 categoryId: categoriesMap[type],
             }
         })
+
+        const imagesData = images.map(image => ({
+            url: image,
+            productId: dbProduct.id,
+        }));
+
+        await prisma.productImage.createMany({
+            data: imagesData
+        })
     });
 
    
     console.log(categoriesMap);
+    console.log("se ejecuto correctamente  el seed");
 }
 
 
