@@ -5,12 +5,18 @@ import { initialData } from "@/seed/seed";
 import { getPaginatedProductsWithImages } from "@/actions";
 
 
+interface Props{
+  searchParams: {
+    page?: string;
+  }
+}
 
 
+export default async function Home( {searchParams}: Props ) {
 
-export default async function Home() {
+  const page = searchParams.page ? parseInt(searchParams.page):1;
 
-  const {products} = await getPaginatedProductsWithImages();
+  const {products} = await getPaginatedProductsWithImages({page});
 
 
   return (
