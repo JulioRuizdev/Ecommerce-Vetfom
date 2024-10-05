@@ -1,6 +1,6 @@
 
 
-export const generatePagination = (currentPage: number, totalPages:number ) =>{
+export const generatePaginationNumbers = (currentPage: number, totalPages:number ) =>{
     //si el numero total de paginas es 7 o menos
     //muestra las paginas sin 3 puntos
     if(totalPages <= 7){
