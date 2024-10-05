@@ -3,6 +3,7 @@ import { titleFont } from "../config/fonts";
 import { ProductGrid, Title } from "@/components";
 import { initialData } from "@/seed/seed";
 import { getPaginatedProductsWithImages } from "@/actions";
+import { redirect } from "next/navigation";
 
 
 interface Props{
@@ -18,6 +19,9 @@ export default async function Home( {searchParams}: Props ) {
 
   const {products} = await getPaginatedProductsWithImages({page});
 
+  if ( products.length === 0){
+    redirect('/');
+  }
 
   return (
     <>
