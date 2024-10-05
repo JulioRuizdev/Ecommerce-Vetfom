@@ -1,13 +1,13 @@
 import { getPaginatedProductsWithImages } from '@/actions';
 import { Pagination, ProductGrid, Title } from '@/components';
-import { Category } from '@prisma/client';
+import { Section } from '@prisma/client'; // Cambiamos a Section en lugar de Category
 import { redirect } from 'next/navigation';
 
 
 interface Props{
     params: {
-        category: string;
-    },
+        category: string; // Esto es en realidad el `section`
+    },  
     searchParams: {
         page?: string;
     }
@@ -17,18 +17,18 @@ interface Props{
 
 export default async function ( {params, searchParams}: Props){
 
-    const {category} = params;
-    
+    const { category } = params;
+
     const page = searchParams.page ? parseInt(searchParams.page) : 1;
 
-    const {products, currentPage, totalPages} = await getPaginatedProductsWithImages({
+    const { products, currentPage, totalPages } = await getPaginatedProductsWithImages({
         page, 
-        category: category as unknown as Category,
+        category: category as unknown as Section, // Cambiamos a Section
     });
 
     console.log(currentPage, totalPages);
 
-    if ( products.length === 0){
+    if (products.length === 0) {
         redirect(`/category/${category}`);
     }
 
@@ -39,11 +39,6 @@ export default async function ( {params, searchParams}: Props){
         medicine: 'Medicamentos'
     }
 
-    // if( id === 'food'){
-    //     notFound();
-
-    // }
-
     return (
         <>
         <Title 
@@ -53,10 +48,10 @@ export default async function ( {params, searchParams}: Props){
         />
         
         <ProductGrid 
-          products = { products }
+          products={products}
         />
 
-        <Pagination totalPages={totalPages}/>
+        <Pagination totalPages={totalPages} />
     
         </>
     )
