@@ -11,5 +11,15 @@ export interface Product {
     section: Category;
 }
 
+
+export interface CartProduct{
+    id: string;
+    slug: string;
+    title: string;
+    price: number;
+    quantity: number;
+    images: string;
+}
+
 export type Category = 'food'|'toy'|'article'|'medicine';
 export type Types = 'cat'|'dog'|'chicken'|'other';
