@@ -22,6 +22,7 @@ interface State {
 
 }
 
+// hay un bug utilizar npm install zustand@4.4.6
 
 export const useCartStore = create<State>()(
 
