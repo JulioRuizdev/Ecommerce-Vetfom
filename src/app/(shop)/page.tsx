@@ -2,12 +2,16 @@ import Image from "next/image";
 import { titleFont } from "../config/fonts";
 import { ProductGrid, Title } from "@/components";
 import { initialData } from "@/seed/seed";
+import { getPaginatedProductsWithImages } from "@/actions";
+
 
 
 
 const products = initialData.products;
 
-export default function Home() {
+export default async function Home() {
+
+  const productsTemp  = await getPaginatedProductsWithImages();
 
 
   return (
