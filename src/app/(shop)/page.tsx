@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { titleFont } from "../config/fonts";
-import { ProductGrid, Title } from "@/components";
+import { Pagination, ProductGrid, Title } from "@/components";
 import { initialData } from "@/seed/seed";
 import { getPaginatedProductsWithImages } from "@/actions";
 import { redirect } from "next/navigation";
@@ -37,6 +37,7 @@ export default async function Home( {searchParams}: Props ) {
       products = { products }
     />
 
+    <Pagination totalPages={totalPages}/>
     </>
 
   );
