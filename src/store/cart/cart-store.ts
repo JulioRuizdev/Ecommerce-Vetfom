@@ -8,6 +8,12 @@ interface State {
     cart: CartProduct[];
 
     getTotalItems: () => number;
+    getSummaryInformation: () => {
+        subTotal: number;
+        tax: number;
+        total: number;
+        itemsInCart: number;
+    };
 
 
     addProductToCart: (product: CartProduct) => void;
@@ -29,6 +35,23 @@ export const useCartStore = create<State>()(
                 const {cart} = get();
                 return cart.reduce( (total, item)=>total + item.quantity,0);
             },
+
+            getSummaryInformation: ()  =>{
+                const {cart} = get();
+
+                const subTotal = cart.reduce(
+                    (subTotal, product ) => product.quantity * product.price + subTotal,
+                    0);
+                    const tax = parseFloat((subTotal * 0.18).toFixed(2)); // Impuestos al 18%
+                    const total = parseFloat((subTotal + tax).toFixed(2)); // Total
+                    const itemsInCart = cart.reduce((total, item) => total + item.quantity, 0);
+    
+            
+                    return{
+                        subTotal: parseFloat(subTotal.toFixed(2))
+                        , tax, total, itemsInCart
+                    }
+                },
 
 
             // Metodos
