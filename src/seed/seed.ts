@@ -1,4 +1,6 @@
-export interface Product {
+import bcryptjs from 'bcryptjs';
+
+export interface SeedProduct {
     //Todo: id: string;
     description: string;
     images: string[];
@@ -11,15 +13,44 @@ export interface Product {
     section: Category;
 }
 
+
+interface SeedUser{
+    email: string;
+    password: string;
+    name: string;
+    role: 'admin' | 'user';
+}
+
 export type Category = 'food' | 'toy' | 'article' | 'medicine';
 export type Types = 'cat' | 'dog' | 'bird' | 'other';
 
 interface SeedData {
+    users: SeedUser[];
     categories:string[];
-    products: Product[];
+    products: SeedProduct[];
 }
 
+
+
+
 export const initialData: SeedData = {
+
+    users: [
+        {
+            email: 'julio@gmail.com',
+            name: 'Julio',
+            password: bcryptjs.hashSync('123456'),
+            role: 'admin'
+        },
+
+        {
+            email: 'cesar@gmail.com',
+            name: 'Cesar',
+            password: bcryptjs.hashSync('123456'),
+            role: 'user'
+        },
+    ],
+
     categories: ['Cat', 'Dog', 'Bird', 'Other'],
 
     products: [
