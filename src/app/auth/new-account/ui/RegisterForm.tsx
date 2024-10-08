@@ -1,7 +1,8 @@
 'use client';
-import { registerUser } from "@/actions";
+import { login, registerUser } from "@/actions";
 import clsx from "clsx";
 import Link from "next/link";
+// import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { set } from "zod";
@@ -14,6 +15,8 @@ type FormInputs = {
   
 
 export const RegisterForm = () => {
+
+    // const router = useRouter();
 
     const [errorMessage, setErrorMessage] = useState('');
 
@@ -29,6 +32,9 @@ export const RegisterForm = () => {
             setErrorMessage(resp.message);
             return;
         }
+
+        await login(email.toLowerCase(), password);
+        window.location.replace('/');
     
     
     }
