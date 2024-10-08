@@ -30,10 +30,4 @@ npx prisma migrate dev
 
 ## Integrantes:
 
-- Julio Cesar Ruiz Cardenas
-- Jesus Cabrera
-- Rogelio
--
--
--
--
+![Imagen de WhatsApp 2024-10-08 a las 13 27 32_56d2f7f7](https://github.com/user-attachments/assets/ca2e0db9-0d19-4d06-a7df-a4fde4c14ac8)
