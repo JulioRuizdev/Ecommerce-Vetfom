@@ -51,11 +51,6 @@ export const LoginForm =() =>{
     </div>
 
     <LoginButton />
-    {/* <button
-      type="submit"
-      className="btn-primary">
-      Ingresar
-    </button> */}
 
 
     {/* divisor l ine */ }
@@ -78,10 +73,11 @@ export const LoginForm =() =>{
 
 function LoginButton(){
   const {pending} = useFormStatus();
-  const router = useRouter();
+  // const router = useRouter();
 
   const handleClick = () => {
     if (!pending) {
+      
       window.location.replace('/');
     }
   };
