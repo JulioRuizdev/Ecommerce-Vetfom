@@ -32,8 +32,6 @@ export const authConfig: NextAuthConfig  = {
             //buscar contraseña
             if (!bcryptjs.compareSync(password, user.password)) return null;
 
-            
-
             //regresar el usuario sin la contraseña
             const { password: _, ...rest } = user;
 
@@ -47,4 +45,4 @@ export const authConfig: NextAuthConfig  = {
 };
 
 
-export const { signIn, signOut, auth} = NextAuth( authConfig)
+export const { signIn, signOut, auth, handlers} = NextAuth( authConfig)

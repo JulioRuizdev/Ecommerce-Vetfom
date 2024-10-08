@@ -1,7 +1,7 @@
 'use server';
  
 import { signIn } from '@/auth.config';
-import { sleep } from '@/utils';
+// import { sleep } from '@/utils';
 // import { AuthError } from 'next-auth';
  
 // ...
@@ -11,23 +11,17 @@ export async function authenticate(
   formData: FormData,
 ) {
   try {
-    await sleep(2);
     await signIn('credentials', {
       ...Object.fromEntries(formData),
-      redirect: false,
-
+      redirect: false, 
     });
+    // await sleep(0.5);
+    
     return 'Success'
-  } catch (error) {
-    // if (error instanceof AuthError) {
-    //   switch (error.type) {
-    //     case 'CredentialsSignin':
-    //       return 'Invalid credentials.';
-    //     default:
 
-          return 'CredentialsSignin';
-    //   }
-    // }
-    // throw error;
+  } catch (error) {
+
+      return 'CredentialsSignin';
+
   }
 }

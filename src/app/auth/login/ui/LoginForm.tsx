@@ -3,7 +3,6 @@ import { authenticate } from "@/actions";
 import clsx from "clsx";
 import Link from "next/link"
 import { useRouter } from "next/navigation";
-
 import { useEffect } from "react";
 import { useFormState, useFormStatus } from "react-dom";
 import { IoInformationOutline } from "react-icons/io5";
@@ -30,7 +29,7 @@ export const LoginForm =() =>{
       />
 
 
-    <label htmlFor="email">Contraseña</label>
+    <label htmlFor="password">Contraseña</label>
     <input
       className="px-5 py-2 border bg-gray-200 rounded mb-5"
       type="password" 
