@@ -78,6 +78,13 @@ export const LoginForm =() =>{
 
 function LoginButton(){
   const {pending} = useFormStatus();
+  const router = useRouter();
+
+  const handleClick = () => {
+    if (!pending) {
+      window.location.replace('/');
+    }
+  };
 
   return (
     <button
@@ -87,7 +94,8 @@ function LoginButton(){
         "btn-disabled": pending
       })}
       disabled={pending}
-      >
+      onClick={handleClick}
+    >
       Ingresar
     </button>
   )
