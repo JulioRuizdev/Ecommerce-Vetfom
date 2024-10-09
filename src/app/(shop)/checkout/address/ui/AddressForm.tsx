@@ -1,12 +1,13 @@
 'use client';
 
 import { deleteUserAddress, setUserAddress } from "@/actions";
+import { Address } from "@/interfaces";
 import { useAddressStore } from "@/store";
 import clsx from "clsx";
 import { useSession } from "next-auth/react";
-import { useEffect } from "react";
+import { use, useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { set } from "zod";
+
 
 type FormInputs = {
   firstName: string;
@@ -21,11 +22,16 @@ type FormInputs = {
 
 }
 
-export const AddressForm = () => {
+interface Props {
+  useStoredAddress?: Partial<Address>;
+}
+
+export const AddressForm = ({useStoredAddress = {}}: Props) => {
 
   const {handleSubmit, register, formState: {isValid}, reset} = useForm<FormInputs>({
     defaultValues: {
-      //todo leer de la bd
+      ...(useStoredAddress as any),
+      rememberAddress: false,
     }
   });
 
