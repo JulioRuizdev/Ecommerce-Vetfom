@@ -1,6 +1,6 @@
 'use client';
 
-import { setUserAddress } from "@/actions";
+import { deleteUserAddress, setUserAddress } from "@/actions";
 import { useAddressStore } from "@/store";
 import clsx from "clsx";
 import { useSession } from "next-auth/react";
@@ -54,7 +54,7 @@ export const AddressForm = () => {
       //todo grabar en la bd
       setUserAddress(restAddress, session!.user!.id)
     }else{
-
+      deleteUserAddress(session!.user!.id);
     }
   }
 
