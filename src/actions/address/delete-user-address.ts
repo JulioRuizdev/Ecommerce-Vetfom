@@ -9,6 +9,7 @@ export const deleteUserAddress = async (userId: string) => {
         const deleted = await prisma.userAddress.delete({
             where: {userId}
         });
+        console.log(deleted);
 
         return {ok: true};
         

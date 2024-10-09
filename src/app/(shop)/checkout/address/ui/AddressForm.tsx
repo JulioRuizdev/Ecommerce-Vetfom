@@ -126,7 +126,7 @@ export const AddressForm = ({useStoredAddress = {}}: Props) => {
         className="p-2 border rounded-md bg-gray-200" {...register('country', {required: true})}
       >
         <option value="">[ Seleccione ]</option>
-        <option value="PER">Peru</option>
+        <option value="peru">Peru</option>
       </select>
     </div>
 
