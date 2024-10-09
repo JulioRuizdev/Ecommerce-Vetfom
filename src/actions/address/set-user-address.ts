@@ -38,10 +38,12 @@ const createOrReplaceAddress = async(address: Address, userId: string) => {
             address: address.address,
             address2: address.address2,
             country: address.country,
+            city: address.city,
             firstName: address.firstName,
             lastName: address.lastName,
             phone: address.phone,
             postalCode: address.postalCode,
+
         }
 
         if(!storeAddress){
