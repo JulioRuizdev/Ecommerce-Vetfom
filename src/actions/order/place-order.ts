@@ -54,62 +54,110 @@ export const placeOrder = async( productIds: ProductToOrder[], address: Address)
         return totals;
     }, {subTotal: 0, tax: 0, total: 0});
 
+    try {
 
-    const prismaTx = await prisma.$transaction( async(tx) => {
+        const prismaTx = await prisma.$transaction( async(tx) => {
 
-        //acualizar el stock
-
-
-        // crear la orden encabezado detalles
-
-        const order = await tx.order.create({
-            data: {
-                userId: userId,
-                itemsInOrder: itemsInOrder,
-                subTotal: subTotal,
-                tax: tax,
-                total: total,
-
-                OrderItem: {
-                    createMany:{
-                        data: productIds.map( p => ({
-                            quantity: p.quantity,
-                            productId: p.productId,
-                            price: products.find( product => product.id === p.productId)?.price ?? 0
-                        }))
+            //acualizar el stock
+            const updatedProductsPromises = products.map( async (product) => {
+    
+                //acumular valores 
+                const productQuantity = productIds.filter(
+                    p => p.productId === product.id
+                ).reduce((acc, item) => item.quantity + acc, 0);
+    
+    
+                if( productQuantity === 0) {
+                    throw new Error(`No se puede comprar no hay stock de ${product.title}`)
+                }
+    
+                return tx.product.update({
+                    where: { id: product.id},
+                    data: {
+                        // inStock: product.inStock - productQuantity
+                        inStock: {
+                            decrement: productQuantity  
+                        }
+    
+                    }
+                })
+            });
+    
+            const updatedProducts = await Promise.all(updatedProductsPromises);
+    
+            // verificar valores negativos o no hay suficiente stockk
+    
+            updatedProducts.forEach( product => {
+                if( product.inStock < 0){
+                    throw new Error(`No hay suficiente stock de ${product.title}`)
+                }
+            });
+    
+    
+    
+            // crear la orden encabezado detalles
+    
+            const order = await tx.order.create({
+                data: {
+                    userId: userId,
+                    itemsInOrder: itemsInOrder,
+                    subTotal: subTotal,
+                    tax: tax,
+                    total: total,
+    
+                    OrderItem: {
+                        createMany:{
+                            data: productIds.map( p => ({
+                                quantity: p.quantity,
+                                productId: p.productId,
+                                price: products.find( product => product.id === p.productId)?.price ?? 0
+                            }))
+                        }
                     }
                 }
+            });
+    
+    
+            // crear la direccion de envio
+    
+            const {country , ...restAddress} = address;
+            const orderAddress = await tx.orderAddress.create({
+                data: {
+                    ...restAddress,
+                    country: country,
+                    orderId: order.id,
+    
+                    }
+            });
+    
+            
+    
+            return {
+                order: order,
+                orderAddress: orderAddress,
+                updatedProducts: [],
+    
             }
-        });
-
-
-        // crear la direccion de envio
-
-        const {country , ...restAddress} = address;
-        const orderAddress = await tx.orderAddress.create({
-            data: {
-                ...restAddress,
-                country: country,
-                orderId: order.id,
-
-                }
+    
+    
         });
 
         
-
         return {
-            order: order,
-            orderAddress: orderAddress,
-            updatedProducts: [],
-
+            ok: true,
+            order: prismaTx.order.id,
+            prismaTx: prismaTx,
         }
-
-
-    });
-
-    return {
-        ok: true,
-        message: 'Orden creada'
+        
+    } catch (error:any) {
+        return {
+            ok: false,
+            message: error?.message,
+        }
     }
+
+
+
+
 
 }

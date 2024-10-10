@@ -20,6 +20,8 @@ interface State {
     updateProductQuantity: (product: CartProduct, quantity: number) => void;
     removeProduct: (product: CartProduct) => void;
 
+    clearCart: () => void;
+
 }
 
 // hay un bug utilizar npm install zustand@4.4.6
@@ -104,7 +106,10 @@ export const useCartStore = create<State>()(
                 )
 
                 set ({cart: updateCartProducts});
-            }
+            },
+            clearCart: () => {
+                set({cart: []});
+            },
 
         }),
         {
