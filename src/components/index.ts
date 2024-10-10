@@ -2,8 +2,9 @@
 export * from './products/product-grid/ProductGrid';
 export * from './products/product-grid/ProductGridItem';
 
-export * from './provider/Provider';
+export * from './providers/Providers';
 
+export * from './paypal/PaypalButton';
 
 export * from './ui/footer/Footer';
 export * from './ui/pagination/Pagination'
