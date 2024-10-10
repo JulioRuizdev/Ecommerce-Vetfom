@@ -13,7 +13,7 @@ export const Providers = ({children}: Props) => {
     <PayPalScriptProvider options={{ 
       clientId: process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID ?? '',
       intent: 'capture',
-      currency: 'PEN' 
+      currency: 'USD',
       }}>
       <SessionProvider>
           { children }
