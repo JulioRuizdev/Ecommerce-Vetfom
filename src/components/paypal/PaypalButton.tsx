@@ -1,6 +1,7 @@
 'use client';
 import { PayPalButtons, usePayPalScriptReducer } from "@paypal/react-paypal-js"
 import { CreateOrderData, CreateOrderActions } from "@paypal/paypal-js"
+import { setTransactionId } from "@/actions";
 
 
 interface Props {
@@ -33,6 +34,11 @@ export const PaypalButton = ({orderId, amount}: Props) => {
                 }
             }]
         });
+
+        const { ok } = await setTransactionId( orderId, transactionId);
+        if ( !ok ) {
+            throw new Error('No se pudo crear la orden');
+        }
 
         return transactionId;
     }
