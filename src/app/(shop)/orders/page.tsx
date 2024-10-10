@@ -41,7 +41,7 @@ export default async function OrdersPage() {
           <tbody>
 
             {
-              orders.map( order =>(
+              orders?.map( order =>(
 
                 <tr key={ order.id } className="bg-white border-b transition duration-300 ease-in-out hover:bg-gray-100">
 
