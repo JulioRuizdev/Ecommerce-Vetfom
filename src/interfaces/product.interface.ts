@@ -21,5 +21,5 @@ export interface CartProduct{
     image: string;
 }
 
-export type Category = 'food'|'toy'|'article'|'medicine';
+type Category = 'food'|'toy'|'article'|'medicine';
 export type Types = 'cat'|'dog'|'chicken'|'other';

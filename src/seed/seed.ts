@@ -51,7 +51,7 @@ export const initialData: SeedData = {
         },
     ],
 
-    categories: ['Cat', 'Dog', 'Bird', 'Other'],
+    categories: ['Gato', 'Perro', 'Ave', 'Otro'],
 
     products: [
         {
