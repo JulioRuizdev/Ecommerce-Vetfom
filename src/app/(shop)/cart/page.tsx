@@ -9,7 +9,7 @@ import { OrderSummary } from "./ui/OrderSummary";
 
 
 
-export default function (){
+export default function CartPage(){
 
     //redirect('/empty');
 

@@ -17,7 +17,7 @@ interface Props{
 
 
 
-export default async function ( {params, searchParams}: Props){
+export default async function CategoryPage( {params, searchParams}: Props){
 
     const { category } = params;
 

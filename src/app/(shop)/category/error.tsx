@@ -3,7 +3,7 @@
 import { PageNotFound } from "@/components";
 import Link from "next/link";
 
-export default function(){
+export default function ErrorPage(){
 
 
     return (
