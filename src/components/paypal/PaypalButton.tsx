@@ -47,6 +47,7 @@ export const PaypalButton = ({orderId, amount}: Props) => {
     const onAprove = async(data: OnApproveData, actions:OnApproveActions) =>{
 
         const details = await actions.order?.capture();
+        console.log(details);
 
         if( !details) return;
 
