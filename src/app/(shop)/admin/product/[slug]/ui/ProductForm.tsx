@@ -92,6 +92,11 @@ export const ProductForm = ({ product, categories }: Props) => {
         </div>
 
         <div className="flex flex-col mb-2">
+          <span>Stock</span>
+          <input type="text" className="p-2 border rounded-md bg-gray-200" {...register('inStock', { required: true})}/>
+        </div>
+
+        <div className="flex flex-col mb-2">
           <span>Seccion</span>
           <select className="p-2 border rounded-md bg-gray-200" {...register('section', { required: true})}>
             <option value="">[Seleccione]</option>
