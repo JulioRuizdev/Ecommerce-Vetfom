@@ -11,7 +11,7 @@ interface PaginationOptions{
 }
 
 
-export const getPaginatedProductsWithImages = async ({
+export const getPaginatedProductsWithImages = async({
     page=1,
     take=12,
     category, // Este debe cambiar a section, ya que `category` es un modelo en Prisma
