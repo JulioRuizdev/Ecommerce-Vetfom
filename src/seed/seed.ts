@@ -22,7 +22,7 @@ interface SeedUser{
 }
 
 export type Category = 'food' | 'toy' | 'article' | 'medicine';
-export type Types = 'cat' | 'dog' | 'bird' | 'other';
+export type Types = 'Gato' | 'Perro' | 'Ave' | 'Otro';
 
 interface SeedData {
     users: SeedUser[];
@@ -63,7 +63,7 @@ export const initialData: SeedData = {
             slug: "pedigree",
             tags: ['perro', 'comida'],
             title: "Pedigree",
-            type: 'dog',
+            type: 'Perro',
             section: 'food'
         },
         {
@@ -74,7 +74,7 @@ export const initialData: SeedData = {
             slug: "ricocat",
             tags: ['gato', 'comida'],
             title: "Ricocat",
-            type: 'cat',
+            type: 'Gato',
             section: 'food'
         },
         {
@@ -85,7 +85,7 @@ export const initialData: SeedData = {
             slug: "rico_crack",
             tags: ['perro', 'comida'],
             title: "Rico Crack",
-            type: 'dog',
+            type: 'Perro',
             section: 'food'
         },
         {
@@ -96,7 +96,7 @@ export const initialData: SeedData = {
             slug: "canbo",
             tags: ['perro', 'comida'],
             title: "Canbo",
-            type: 'dog',
+            type: 'Perro',
             section: 'food'
         },
         {
@@ -107,7 +107,7 @@ export const initialData: SeedData = {
             slug: "whiskas_premium",
             tags: ['gato', 'comida'],
             title: "Whiskas Premium",
-            type: 'cat',
+            type: 'Gato',
             section: 'food'
         },
         {
@@ -118,7 +118,7 @@ export const initialData: SeedData = {
             slug: "super_cat",
             tags: ['gato', 'comida'],
             title: "Super Cat",
-            type: 'cat',
+            type: 'Gato',
             section: 'food'
         },
         {
@@ -129,7 +129,7 @@ export const initialData: SeedData = {
             slug: "raton_juguete",
             tags: ['gato', 'juguete'],
             title: "Ratón Juguete",
-            type: 'cat',
+            type: 'Gato',
             section: 'toy'
         },
         {
@@ -140,7 +140,7 @@ export const initialData: SeedData = {
             slug: "juguete_interactivo",
             tags: ['gato', 'juguete'],
             title: "Juguete Interactivo",
-            type: 'cat',
+            type: 'Gato',
             section: 'toy'
         },
         {
@@ -151,7 +151,7 @@ export const initialData: SeedData = {
             slug: "collar_cuero",
             tags: ['perro', 'articulo'],
             title: "Collar de Cuero",
-            type: 'dog',
+            type: 'Perro',
             section: 'article'
         },
         {
@@ -162,7 +162,7 @@ export const initialData: SeedData = {
             slug: "medicina_01",
             tags: ['medicina', 'salud'],
             title: "Medicina 1",
-            type: 'dog',
+            type: 'Perro',
             section: 'medicine'
         },
         {
@@ -173,7 +173,7 @@ export const initialData: SeedData = {
             slug: "medicina_02",
             tags: ['medicina', 'salud'],
             title: "Medicina 2",
-            type: 'cat',
+            type: 'Gato',
             section: 'medicine'
         },
         {
@@ -184,7 +184,7 @@ export const initialData: SeedData = {
             slug: "medicina_03",
             tags: ['medicina', 'salud'],
             title: "Medicina 3",
-            type: 'dog',
+            type: 'Perro',
             section: 'medicine'
         },
         {
@@ -195,7 +195,7 @@ export const initialData: SeedData = {
             slug: "medicina_04",
             tags: ['medicina', 'salud'],
             title: "Medicina 4",
-            type: 'dog',
+            type: 'Perro',
             section: 'medicine'
         },
         {
@@ -206,7 +206,7 @@ export const initialData: SeedData = {
             slug: "medicina_05",
             tags: ['medicina', 'salud'],
             title: "Medicina 5",
-            type: 'cat',
+            type: 'Gato',
             section: 'medicine'
         },
         {
@@ -217,7 +217,7 @@ export const initialData: SeedData = {
             slug: "medicina_06",
             tags: ['medicina', 'salud'],
             title: "Medicina 6",
-            type: 'dog',
+            type: 'Perro',
             section: 'medicine'
         },
         {
@@ -228,7 +228,7 @@ export const initialData: SeedData = {
             slug: "medicina_07",
             tags: ['medicina', 'salud'],
             title: "Medicina 7",
-            type: 'dog',
+            type: 'Perro',
             section: 'medicine'
         },
         {
@@ -239,7 +239,7 @@ export const initialData: SeedData = {
             slug: "ropa_gatos",
             tags: ['gato', 'articulo'],
             title: "Ropa Gatos",
-            type: 'cat',
+            type: 'Gato',
             section: 'article'
         },
         {
@@ -250,7 +250,7 @@ export const initialData: SeedData = {
             slug: "ropa_perros",
             tags: ['perro', 'articulo'],
             title: "Ropa Perros",
-            type: 'dog',
+            type: 'Perro',
             section: 'article'
         }
     ]
