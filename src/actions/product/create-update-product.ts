@@ -1,6 +1,7 @@
 'use server';
 
-import { Section } from '@prisma/client';
+import prisma from '@/lib/prisma';
+import { Product, Section } from '@prisma/client';
 import {z} from 'zod';
 
 const productSchema = z.object({
@@ -24,7 +25,37 @@ export const createUpdateProduct = async (formData: FormData) => {
         return {ok: false};
     }
 
-    console.log(productParsed.data);
+    const product = productParsed.data;
+    product.slug = product.slug.toLowerCase().replace(/ /g, '-').trim();
+
+    const {id, ...rest} = product;
+
+    const prismaTx = await prisma.$transaction(async (tx) => {
+
+        let product: Product;
+        const tagsArray = rest.tags.split(',').map(tag => tag.trim().toLowerCase());
+        if (id){
+
+            product = await prisma.product.update({
+                where: {id},
+                data: {
+                    ...rest,
+                    tags:{
+                        set: tagsArray
+                    }
+                },
+            })
+
+        }else{
+
+        }
+
+
+        return {
+            ok: true,
+
+        }
+    });
 
     return {ok: true};
 }
