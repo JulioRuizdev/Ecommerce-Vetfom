@@ -1,28 +1,52 @@
 
+import {getPaginatedProductsWithImages} from './product/product-pagination';
+import {getProductBySlug} from './product/get-product-by-slug';
+import {getStockBySlug} from './product/get-stock-by-slug';
 
-export * from './product/product-pagination';
-export * from './product/get-product-by-slug';
-export * from './product/get-stock-by-slug';
+import {authenticate} from './auth/login';
+import {logout} from './auth/logout';
+import {registerUser} from './auth/register';
 
-export * from './auth/login';
-export * from './auth/logout';
-export * from './auth/register';
+import {setUserAddress} from './address/set-user-address';
+import {deleteUserAddress} from './address/delete-user-address';
+import {getUserAddress} from './address/get-user-address';
 
-export * from './address/set-user-address';
-export * from './address/delete-user-address';
-export * from './address/get-user-address';
+import {placeOrder} from './order/place-order';
+import {getOrdersByUser} from './order/get-orders-by-user';
+import {getOrderById} from './order/get-order-by-id';
+import {getPaginatedOrders} from './order/get-paginated-orders';
 
-export * from './order/place-order';
-export * from './order/get-orders-by-user';
-export * from './order/get-order-by-id';
-export * from './order/get-paginated-orders';
-
-export * from './payments/set-transaction-id';
-export * from './payments/paypal-check-payment';
-
-
-export * from './user/get-paginated-users';
-export * from './user/change-user-role';
+import {setTransactionId} from './payments/set-transaction-id';
+import {paypalCheckPayment} from './payments/paypal-check-payment';
 
 
-export * from './category/get-categories';
+import {getPaginatedUsers} from './user/get-paginated-users';
+import {changeUserRole} from './user/change-user-role';
+
+
+import {getCategories} from './category/get-categories';
+
+import {createUpdateProduct} from './product/create-update-product';
+
+export {
+    getPaginatedProductsWithImages,
+    getProductBySlug,
+    getStockBySlug,
+    authenticate,
+    logout,
+    registerUser,
+    setUserAddress,
+    deleteUserAddress,
+    getUserAddress,
+    placeOrder,
+    getOrdersByUser,
+    getOrderById,
+    getPaginatedOrders,
+    setTransactionId,
+    paypalCheckPayment,
+    getPaginatedUsers,
+    changeUserRole,
+    getCategories,
+    createUpdateProduct
+
+};

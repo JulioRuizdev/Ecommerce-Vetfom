@@ -1,5 +1,6 @@
 "use client";
 
+import { createUpdateProduct } from "@/actions";
 import { Category, Product } from "@/interfaces";
 import { ProductImage } from "@prisma/client";
 import Image from "next/image";
@@ -37,7 +38,24 @@ export const ProductForm = ({ product, categories }: Props) => {
   });
 
   const onSubmit = async(data: FormInputs) => {
-    console.log({data});
+    const formData = new FormData();
+
+    const {...productToSave} = data;
+
+    formData.append('id', product.id ?? '');
+    formData.append('title', productToSave.title);
+    formData.append('slug', productToSave.slug);
+    formData.append('description', productToSave.description);
+    formData.append('price', productToSave.price.toString());
+    formData.append('inStock', productToSave.inStock.toString());
+    formData.append('tags', productToSave.tags);
+    formData.append('section', productToSave.section);
+    formData.append('categoryId', productToSave.categoryId);
+
+    const {ok } = await createUpdateProduct(formData);
+    console.log(ok);
+
+    
   }
 
   return (
