@@ -21,5 +21,11 @@ export interface CartProduct{
     image: string;
 }
 
+export interface ProductImage{
+    id: number;
+    url: string;
+    productId: string;
+}
+
 type Category = 'food'|'toy'|'article'|'medicine';
 export type Types = 'cat'|'dog'|'chicken'|'other';

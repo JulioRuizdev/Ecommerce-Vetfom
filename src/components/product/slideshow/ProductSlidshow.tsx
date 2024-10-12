@@ -13,6 +13,7 @@ import 'swiper/css/thumbs';
 
 import './slideshow.css';
 import Image from "next/image";
+import { ProductImage } from "../product-image/ProductImage";
 
 interface Props{
   images: string[];
@@ -48,10 +49,10 @@ export const ProductSlidshow = ({images, title, className}:Props) =>{
         {
           images.map(image => (
             <SwiperSlide key={ image }  className="">
-              <Image 
+              <ProductImage 
                 width={600} // Controla el ancho máximo de la imagen
                 height={600} // Controla el alto máximo de la imagen
-                src={`/products/${image}`}
+                src={image}
                 alt={ title}
                 className="object-contain rounded-lg"
               />
@@ -72,10 +73,10 @@ export const ProductSlidshow = ({images, title, className}:Props) =>{
         {
           images.map(image => (
             <SwiperSlide key={ image }  className="">
-              <Image 
+              <ProductImage 
                 width={300}
                 height={300}
-                src={`/products/${image}`}
+                src={image}
                 alt={ title}
                 className="rounded-lg object-fill"
               />

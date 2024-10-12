@@ -1,13 +1,13 @@
 "use client";
 
 import { createUpdateProduct } from "@/actions";
-import { Category, Product } from "@/interfaces";
-import { ProductImage } from "@prisma/client";
+import { Category, Product, ProductImage } from "@/interfaces";
+
 import Image from "next/image";
 import { useForm } from "react-hook-form";
 
 interface Props {
-  product: Product & { ProductImage?: ProductImage[]};
+  product: Partial<Product> & { ProductImage?: ProductImage[]};
   categories: Category[];
 }
 
@@ -32,7 +32,7 @@ export const ProductForm = ({ product, categories }: Props) => {
   } = useForm<FormInputs>({
     defaultValues: {
       ...product,
-      tags: product.tags.join(', '),
+      tags: product.tags?.join(', '),
       
     }
   });
@@ -42,7 +42,11 @@ export const ProductForm = ({ product, categories }: Props) => {
 
     const {...productToSave} = data;
 
-    formData.append('id', product.id ?? '');
+    if(product.id){
+        formData.append('id', product.id ?? '');
+    
+    }
+
     formData.append('title', productToSave.title);
     formData.append('slug', productToSave.slug);
     formData.append('description', productToSave.description);
@@ -86,7 +90,7 @@ export const ProductForm = ({ product, categories }: Props) => {
           <input type="number" className="p-2 border rounded-md bg-gray-200" {...register('price', { required: true, min: 0})}/>
         </div>
 
-        <div className="flex flex-col mb-2">
+        <div hidden className="flex flex-col mb-2">
           <span>Etiquetas</span>
           <input type="text" className="p-2 border rounded-md bg-gray-200" {...register('tags', { required: true})}/>
         </div>
@@ -128,7 +132,9 @@ export const ProductForm = ({ product, categories }: Props) => {
       </div>
 
       {/* Selector de tallas y fotos */}
+
       <div className="w-full">
+
         {/* As checkboxes */}
         <div className="flex flex-col">
 
