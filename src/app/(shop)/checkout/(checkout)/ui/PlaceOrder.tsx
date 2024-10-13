@@ -5,13 +5,13 @@ import { useAddressStore, useCartStore } from "@/store";
 import { currencyFormat } from "@/utils";
 import clsx from "clsx";
 import Link from "next/link"
-import { useRouter } from "next/navigation";
+// import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 
 export const  PlaceOrder = () => {
 
-    const router = useRouter();
+    // const router = useRouter();
     const [loaded, setLoaded] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
     const [isPlacingOrder, setIsPlacingOrder] = useState(false);
@@ -47,7 +47,7 @@ export const  PlaceOrder = () => {
 
         if( !resp.ok){
             setIsPlacingOrder(false);
-            setErrorMessage(resp.message);
+            setErrorMessage(resp.message || 'An unexpected error occurred');
             return;
         }
 
