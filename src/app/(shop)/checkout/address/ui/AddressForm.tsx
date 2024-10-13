@@ -48,7 +48,7 @@ export const AddressForm = ({useStoredAddress = {}}: Props) => {
     if( address.firstName) {
       reset(address)
     }
-  }, [])
+  }, [address, reset])
   
 
 
@@ -57,7 +57,7 @@ export const AddressForm = ({useStoredAddress = {}}: Props) => {
     
     const { rememberAddress, ...restAddress} =data;
     setAddress(restAddress);
-    
+    console.log(rememberAddress)
     if( data.rememberAddress){
       await setUserAddress(restAddress, session!.user!.id)
     }else{
