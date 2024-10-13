@@ -28,6 +28,9 @@ import {getCategories} from './category/get-categories';
 
 import {createUpdateProduct} from './product/create-update-product';
 
+import {deleteProductImage} from './product/delete-product-image';
+
+
 export {
     getPaginatedProductsWithImages,
     getProductBySlug,
@@ -47,6 +50,7 @@ export {
     getPaginatedUsers,
     changeUserRole,
     getCategories,
-    createUpdateProduct
+    createUpdateProduct,
+    deleteProductImage
 
 };
