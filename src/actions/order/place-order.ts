@@ -3,7 +3,7 @@
 import { auth } from "@/auth.config";
 import type { Address } from "@/interfaces";
 import prisma from "@/lib/prisma";
-import { ok } from "assert";
+
 
 
 interface ProductToOrder{
@@ -149,7 +149,7 @@ export const placeOrder = async( productIds: ProductToOrder[], address: Address)
             prismaTx: prismaTx,
         }
         
-    } catch (error:any) {
+    } catch (error: any) {
         return {
             ok: false,
             message: error?.message,
