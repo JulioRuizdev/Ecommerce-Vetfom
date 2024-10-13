@@ -1,7 +1,6 @@
 'use server';
 
 import prisma from '@/lib/prisma';
-import { ok } from 'assert';
 import { v2 as cloudinary } from 'cloudinary';
 import { revalidatePath } from 'next/cache';
 cloudinary.config(process.env.CLOUDINARY_URL ?? '');

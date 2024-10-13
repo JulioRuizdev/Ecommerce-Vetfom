@@ -18,7 +18,7 @@ export const authConfig: NextAuthConfig  = {
       }
       return token;
     },
-    session( {session, token, user} ){
+    session( {session, token} ){
       session.user = token.data as any;
       return session;
     }

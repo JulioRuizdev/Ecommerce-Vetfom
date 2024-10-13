@@ -2,8 +2,8 @@ export const revalidate = 10080;
 
 import { getProductBySlug } from "@/actions";
 import { titleFont } from "@/app/config/fonts";
-import { ProductMobileSlidshow, ProductSlidshow, QuantitySelector, StockLabel } from "@/components";
-import { Metadata, ResolvingMetadata } from "next";
+import { ProductMobileSlidshow, ProductSlidshow, StockLabel } from "@/components";
+import { Metadata } from "next";
 
 import { notFound } from "next/navigation";
 import { AddToCart } from "./ui/AddToCart";
@@ -17,7 +17,7 @@ interface Props {
 
 export async function generateMetadata(
     { params}: Props,
-    parent: ResolvingMetadata
+        
   ): Promise<Metadata> {
     // read route params
     const slug = params.slug

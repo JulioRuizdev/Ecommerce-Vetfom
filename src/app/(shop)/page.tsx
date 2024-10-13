@@ -18,7 +18,7 @@ export default async function Home( {searchParams}: Props ) {
 
   const page = searchParams.page ? parseInt(searchParams.page):1;
 
-  const {products, currentPage, totalPages} = await getPaginatedProductsWithImages({page});
+  const {products, totalPages} = await getPaginatedProductsWithImages({page});
 
   // console.log(currentPage, totalPages);
 
