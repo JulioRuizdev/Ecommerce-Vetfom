@@ -2,7 +2,7 @@
 
 import { auth } from "@/auth.config";
 import prisma from "@/lib/prisma";
-import { ok } from "assert";
+
 
 export const getOrderById = async (Id: string) => {
     const session = await auth();
@@ -55,7 +55,7 @@ export const getOrderById = async (Id: string) => {
         }
         
     } catch (error) {
-
+        console.log(error);
         return {
             ok: false,
             message: 'Orden no existe',

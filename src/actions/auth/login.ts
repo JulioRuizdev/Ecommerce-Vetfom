@@ -17,7 +17,7 @@ export async function authenticate(
     return 'Success'
 
   } catch (error) {
-      
+      console.log(error);
       return 'CredentialsSignin';
   }
 }
