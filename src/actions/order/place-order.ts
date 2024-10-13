@@ -149,10 +149,11 @@ export const placeOrder = async( productIds: ProductToOrder[], address: Address)
             prismaTx: prismaTx,
         }
         
-    } catch (error: any) {
+    } catch (error) {
+        console.log(error);
         return {
             ok: false,
-            message: error?.message,
+            message: 'Error al guardar la orden'
         }
     }
 
