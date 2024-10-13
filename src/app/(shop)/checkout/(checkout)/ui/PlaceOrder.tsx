@@ -114,7 +114,7 @@ export const  PlaceOrder = () => {
             {/*Disclaimer antes del boton */}
             <p className="mb-5">
                 <span className="text-xs"> 
-                    Al hacer clic en "Colocar orden", aceptas nuestros <Link href="/terms" className="underline"> terminos y condiciones </Link>
+                    Al hacer clic en Colocar orden, aceptas nuestros <Link href="/terms" className="underline"> terminos y condiciones </Link>
                     y nuestra <Link href="/privacy" className="underline"> politica de privacidad </Link>
                 </span>
             </p>
