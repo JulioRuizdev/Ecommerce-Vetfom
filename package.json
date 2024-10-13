@@ -7,8 +7,8 @@
     "build": "npm run prisma:deploy && next build",
     "start": "next start",
     "lint": "next lint",
-    "seed": "ts-node src/seed/seed-database.ts",
-    "prisma:deploy": "npx prisma migrate deploy && prisma generate "
+    "prisma:deploy": "npx prisma migrate deploy && prisma generate ",
+    "seed": "ts-node src/seed/seed-database.ts"
   },
   "dependencies": {
     "@paypal/react-paypal-js": "^8.1.3",
