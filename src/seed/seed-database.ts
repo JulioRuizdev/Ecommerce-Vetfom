@@ -52,24 +52,25 @@ async function main() {
 
     //crear los productos
     products.forEach(async (product) => {
-        const {type, images, ...rest}=product;
-
+        const { type, images, ...rest } = product;
+    
         const dbProduct = await prisma.product.create({
             data: {
                 ...rest,
-                categoryId: categoriesMap[type],
+                categoryId: categoriesMap[type.toLowerCase()],  // Asegúrate de que coincida el nombre de la categoría
             }
-        })
-
+        });
+    
         const imagesData = images.map(image => ({
             url: image,
             productId: dbProduct.id,
         }));
-
+    
         await prisma.productImage.createMany({
             data: imagesData
-        })
+        });
     });
+    
 
    
     console.log(categoriesMap);
