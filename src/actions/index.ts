@@ -3,7 +3,7 @@ import {getPaginatedProductsWithImages} from './product/product-pagination';
 import {getProductBySlug} from './product/get-product-by-slug';
 import {getStockBySlug} from './product/get-stock-by-slug';
 
-import {authenticate} from './auth/login';
+import {login, authenticate} from './auth/login';
 import {logout} from './auth/logout';
 import {registerUser} from './auth/register';
 
@@ -36,6 +36,7 @@ export {
     getProductBySlug,
     getStockBySlug,
     authenticate,
+    login,
     logout,
     registerUser,
     setUserAddress,
