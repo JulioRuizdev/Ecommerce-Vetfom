@@ -2,7 +2,7 @@ import { getCategories, getProductBySlug } from "@/actions";
 import { Title } from "@/components";
 import { redirect } from "next/navigation";
 import { ProductForm } from "./ui/ProductForm";
-import { Product } from "@/interfaces";
+// import { Product } from "@/interfaces";
 
 interface Props{
     params:{

@@ -1,7 +1,7 @@
 'use server';
 
 import prisma from "@/lib/prisma";
-import { Category, Section } from "@prisma/client";
+import { Section } from "@prisma/client";
 
 
 interface PaginationOptions{

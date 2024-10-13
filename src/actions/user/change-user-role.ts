@@ -31,6 +31,7 @@ import { revalidatePath } from "next/cache";
             return {ok: true, message: 'Rol del usuario cambiado con éxito'};
             
         } catch (error) {
+            console.log(error);
             return {ok: false, message: 'Error al cambiar el rol del usuario'};
             
         }
