@@ -1,4 +1,5 @@
 
+
 import {getPaginatedProductsWithImages} from './product/product-pagination';
 import {getProductBySlug} from './product/get-product-by-slug';
 import {getStockBySlug} from './product/get-stock-by-slug';
@@ -30,6 +31,12 @@ import {createUpdateProduct} from './product/create-update-product';
 
 import {deleteProductImage} from './product/delete-product-image';
 
+import {createUpdateProfile} from './profile/create-update-profile';
+
+import {deleteProfileImage} from './profile/delete-profile-image';
+
+
+
 
 export {
     getPaginatedProductsWithImages,
@@ -52,6 +59,8 @@ export {
     changeUserRole,
     getCategories,
     createUpdateProduct,
-    deleteProductImage
+    deleteProductImage,
+    deleteProfileImage,
+    createUpdateProfile
 
 };
