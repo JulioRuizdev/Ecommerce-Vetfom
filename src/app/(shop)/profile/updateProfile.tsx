@@ -1,8 +1,8 @@
 "use client";
 
-import { createUpdateProduct, deleteProductImage } from "@/actions";
+import { createUpdateProfile, deleteProfileImage } from "@/actions";
 import { ProductImage } from "@/components";
-import { Category, Product, ProductImage as ProductWithImage} from "@/interfaces";
+import { Category, Product, User , UserImage as UserWithImage ,ProductImage as ProductWithImage} from "@/interfaces";
 
 // import Image from "next/image";
 import { useRouter } from "next/navigation";
@@ -15,14 +15,11 @@ interface Props {
 }
 
 interface FormInputs{
-  title: string;
-  slug: string;
-  description: string;
-  price: number;
-  inStock: number;
-  tags: string;
-  section: 'food' | 'toy' | 'article' | 'medicine';
-  categoryId: string;
+  name: string;      
+  email: string;         
+  emailVerified?: Date | null; 
+  password: string;     
+  role: string;           
 
   images?: FileList;
 

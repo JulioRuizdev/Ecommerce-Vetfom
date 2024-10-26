@@ -73,6 +73,15 @@ model User {
   image         String?
   address       UserAddress?
   Order         Order[]
+  UserImage     UserImage[]
+}
+
+model UserImage {
+  id  Int    @id @default(autoincrement())
+  url String
+
+  user   User   @relation(fields: [userId], references: [id])
+  userId String
 }
 
 model UserAddress {

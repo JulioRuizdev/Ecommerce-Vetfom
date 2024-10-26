@@ -9,3 +9,9 @@ export interface User{
     role: string;          
     image?: string | null;               
 }
+
+export interface UserImage{
+    id: number;
+    url: string;
+    userId: string;
+}
