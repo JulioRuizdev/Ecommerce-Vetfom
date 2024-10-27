@@ -34,7 +34,7 @@ export default async function ProfilePage() {
             {session.user.image ? (
               <img 
                 src={session.user.image} 
-                alt={session.user.name}
+                alt={session.user.name ?? 'Imagen de perfil'}
                 className="w-24 h-24 rounded-full object-cover border-2 border-gray-200"
               />
             ) : (

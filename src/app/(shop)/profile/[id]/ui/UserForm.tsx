@@ -2,10 +2,11 @@
 
 import { Title } from "@/components";
 import { useRouter } from "next/navigation";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { createUpdateUserProfile } from '@/actions';
 import { useForm } from "react-hook-form";
 import { User, UserImage as UserWithImage } from "@/interfaces";
+import { useSession } from "next-auth/react";
 
 interface Props {
     user: Partial<User> & { UserImage?: UserWithImage[]};
@@ -18,15 +19,19 @@ interface FormInputs {
   currentPassword: string;
   newPassword: string;
   confirmPassword: string;
-  image?: File | null;
+  image?: FileList | null;
 }
 
 export const UserForm = ({ user }: Props) => {
   const router = useRouter();
+  const { data: session, update } = useSession();
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
   const {
     register,
     handleSubmit,
     formState: { errors },
+    setError,
   } = useForm<FormInputs>({
     defaultValues: {
       ...user,
@@ -35,37 +40,55 @@ export const UserForm = ({ user }: Props) => {
   });
 
   const onSubmit = async (data: FormInputs) => {
+    setIsSubmitting(true);
     const formData = new FormData();
 
-    const {image,...userToSave} = data;
+    const {image, ...userToSave} = data;
 
     if(user.id){
-        formData.append('id', user.id ?? '');
-    
+        formData.append('id', user.id);
     }
 
     formData.append('name', userToSave.name);
     formData.append('email', userToSave.email);
     formData.append('currentPassword', userToSave.currentPassword);
-    formData.append('newPassword', user.password ?? '');
+    formData.append('newPassword', userToSave.newPassword);
     formData.append('confirmPassword', userToSave.confirmPassword);
 
-
-    if(image){
-        formData.append('image', image);
+    if (image && image.length > 0) {
+      formData.append('image', image[0]);
     }
 
+    try {
+      const { ok, user: updatedUser, message } = await createUpdateUserProfile(formData);
 
-    const {ok, user:updatedUser} = await createUpdateUserProfile(formData);
-    console.log(ok);
-
-    if(!ok){
-        alert('Error al guardar el usuario');
+      if (!ok) {
+        setError('root', { type: 'manual', message });
         return;
-    }
+      }
 
-    router.replace('/profile');
-  }
+      if (updatedUser) {
+        await update({
+          ...session,
+          user: {
+            ...session?.user,
+            name: updatedUser.name,
+            email: updatedUser.email,
+            image: updatedUser.image,
+          }
+        });
+
+        // Redirigir al perfil del usuario actual
+        router.push(`/profile/${updatedUser.id}`);
+        router.refresh();
+      }
+    } catch (error) {
+      console.error('Error al actualizar el perfil:', error);
+      setError('root', { type: 'manual', message: 'Error al actualizar el perfil' });
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   return(
     <div className="container mx-auto px-4 py-8">
@@ -145,10 +168,15 @@ export const UserForm = ({ user }: Props) => {
         </div>
         <div className="px-6 py-4 bg-gray-50 border-t">
           <div className="flex justify-center">
-            <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-              Guardar cambios
+            <button 
+              type="submit" 
+              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+              disabled={isSubmitting}
+            >
+              {isSubmitting ? 'Guardando...' : 'Guardar cambios'}
             </button>
           </div>
+          {errors.root && <p className="text-red-500 text-center mt-2">{errors.root.message}</p>}
         </div>
       </form>
     </div>

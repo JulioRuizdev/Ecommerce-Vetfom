@@ -29,7 +29,7 @@ import {createUpdateProduct} from './product/create-update-product';
 
 import {deleteProductImage} from './product/delete-product-image';
 
-import {createUpdateUserProfile} from './profile/create-update-profile';
+import {createOrUpdateProfile as createUpdateUserProfile} from './profile/create-update-profile';
 
 import {deleteProfileImage} from './profile/delete-profile-image';
 

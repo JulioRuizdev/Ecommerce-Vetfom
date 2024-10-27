@@ -24,6 +24,6 @@ export const getUserById = async (id: string) => {
         
     } catch (error) {
         console.log(error);
-        throw new Error('Error al obtener el producto');
+        throw new Error('Error al obtener el usuario');
     }
 }

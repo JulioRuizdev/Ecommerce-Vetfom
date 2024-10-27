@@ -1,91 +1,63 @@
 'use server';
 
 import prisma from '@/lib/prisma';
-import { z } from 'zod';
-import { v2 as cloudinary } from 'cloudinary';
+import bcrypt from 'bcryptjs';
+import { auth } from '@/auth.config';
 
-cloudinary.config(process.env.CLOUDINARY_URL ?? '');
-
-const userSchema = z.object({
-    id: z.string().uuid().optional().nullable(),
-    name: z.string().min(3).max(255),
-    email: z.string().email(),
-    password: z.string().min(6),
-});
-
-export const createUpdateUserProfile = async (formData: FormData) => {
-    const data = Object.fromEntries(formData);
-    const userParsed = userSchema.safeParse(data);
-
-    if (!userParsed.success) {
-        console.log(userParsed.error);
-        return { ok: false };
+export const createOrUpdateProfile = async (formData: FormData) => {
+    const session = await auth();
+    if (!session?.user) {
+        return { ok: false, message: 'Debe estar autenticado' };
     }
 
-    const user = userParsed.data;
-    const { id, ...rest } = user;
+    const userId = session.user.id;
+
+    console.log('ID del usuario de la sesión:', userId); // Para depuración
+
+    const name = formData.get('name') as string;
+    const email = formData.get('email') as string;
+    const currentPassword = formData.get('currentPassword') as string;
+    const newPassword = formData.get('newPassword') as string;
 
     try {
-        const prismaTx = await prisma.$transaction(async () => {
-            let savedUser;
+        // Verificar la contraseña actual
+        const user = await prisma.user.findUnique({ where: { id: userId } });
+        if (!user) {
+            return { ok: false, message: 'Usuario no encontrado' };
+        }
 
-            if (id) {
-                // Actualizar usuario existente
-                savedUser = await prisma.user.update({
-                    where: { id },
-                    data: rest,
-                });
-            } else {
-                // Crear nuevo usuario
-                savedUser = await prisma.user.create({
-                    data: rest,
-                });
+        if (currentPassword) {
+            const isPasswordValid = await bcrypt.compare(currentPassword, user.password);
+            if (!isPasswordValid) {
+                return { ok: false, message: 'Contraseña actual incorrecta' };
             }
+        }
 
-            // Procesar y subir imagen si se proporciona
-            if (formData.get('image')) {
-                const imageFile = formData.get('image') as File;
-                const imageUrl = await uploadImage(imageFile);
+        // Preparar datos para actualizar
+        const updateData: any = { name, email };
+        if (newPassword) {
+            updateData.password = await bcrypt.hash(newPassword, 10);
+        }
 
-                if (!imageUrl) {
-                    throw new Error('Error al subir la imagen');
-                }
-
-                // Actualizar usuario con la URL de la imagen
-                await prisma.user.update({
-                    where: { id: savedUser.id },
-                    data: { image: imageUrl },
-                });
-            }
-
-            return savedUser;
+        // Actualizar usuario
+        const updatedUser = await prisma.user.update({
+            where: { id: userId },
+            data: updateData,
         });
+
+        console.log('Usuario actualizado:', updatedUser); // Para depuración
 
         return {
             ok: true,
-            user: prismaTx,
+            user: {
+                id: updatedUser.id,
+                name: updatedUser.name,
+                email: updatedUser.email,
+                image: updatedUser.image,
+            },
         };
     } catch (error) {
-        console.log(error);
-        return {
-            ok: false,
-            message: 'Error al guardar el perfil del usuario',
-        };
-    }
-};
-
-const uploadImage = async (image: File) => {
-    try {
-        const buffer = await image.arrayBuffer();
-        const base64Image = Buffer.from(buffer).toString('base64');
-
-        const uploadResult = await cloudinary.uploader.upload(
-            `data:image/png;base64,${base64Image}`
-        );
-
-        return uploadResult.secure_url;
-    } catch (error) {
-        console.log(error);
-        return null;
+        console.error('Error al actualizar el perfil:', error);
+        return { ok: false, message: 'Error al actualizar el perfil' };
     }
 };
