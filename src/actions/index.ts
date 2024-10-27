@@ -1,5 +1,3 @@
-
-
 import {getPaginatedProductsWithImages} from './product/product-pagination';
 import {getProductBySlug} from './product/get-product-by-slug';
 import {getStockBySlug} from './product/get-stock-by-slug';
@@ -31,11 +29,13 @@ import {createUpdateProduct} from './product/create-update-product';
 
 import {deleteProductImage} from './product/delete-product-image';
 
-import {createUpdateProfile} from './profile/create-update-profile';
+import {createUpdateUserProfile} from './profile/create-update-profile';
 
 import {deleteProfileImage} from './profile/delete-profile-image';
 
 import {getOrderByMonth} from './order/get-order-by-month';
+import { getUserById } from './profile/get-user-by-id';
+
 
 
 export {
@@ -61,7 +61,8 @@ export {
     createUpdateProduct,
     deleteProductImage,
     deleteProfileImage,
-    createUpdateProfile,
-    getOrderByMonth
+    createUpdateUserProfile,
+    getOrderByMonth,
+    getUserById
 
 };

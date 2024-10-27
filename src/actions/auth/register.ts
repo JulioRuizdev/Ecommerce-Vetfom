@@ -5,6 +5,14 @@ import bcryptjs from 'bcryptjs';
 
 export const registerUser = async(name:string, email: string, password: string) => {
     try {
+        // Validación de la contraseña
+        if (password.length < 6) {
+            return {
+                ok: false,
+                message: 'La contraseña debe tener al menos 6 caracteres'
+            }
+        }
+
         const user = await prisma.user.create({
             data: {
                 name: name,
