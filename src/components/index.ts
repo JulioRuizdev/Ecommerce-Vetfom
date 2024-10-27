@@ -25,3 +25,5 @@ export * from './ui/title/Title';
 
 
 export * from './orders/OrderStatus';
+
+export * from './sales/AreaCharts';
