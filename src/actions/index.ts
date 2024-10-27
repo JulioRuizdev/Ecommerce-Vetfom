@@ -35,7 +35,7 @@ import {createUpdateProfile} from './profile/create-update-profile';
 
 import {deleteProfileImage} from './profile/delete-profile-image';
 
-
+import {getOrderByMonth} from './order/get-order-by-month';
 
 
 export {
@@ -61,6 +61,7 @@ export {
     createUpdateProduct,
     deleteProductImage,
     deleteProfileImage,
-    createUpdateProfile
+    createUpdateProfile,
+    getOrderByMonth
 
 };
