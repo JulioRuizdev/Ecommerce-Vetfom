@@ -2,6 +2,7 @@ import { auth } from "@/auth.config";
 import { Title } from "@/components";
 import { redirect } from "next/navigation";
 import Link from "next/link";
+import { IoPersonCircleOutline } from "react-icons/io5";
 
 export default async function ProfilePage() {
   const session = await auth();
@@ -31,17 +32,7 @@ export default async function ProfilePage() {
         <div className="p-6 border-b flex flex-col items-center">
           {/* Avatar */}
           <div className="relative mb-4">
-            {session.user.image ? (
-              <img 
-                src={session.user.image} 
-                alt={session.user.name ?? 'Imagen de perfil'}
-                className="w-24 h-24 rounded-full object-cover border-2 border-gray-200"
-              />
-            ) : (
-              <div className="w-24 h-24 rounded-full bg-gray-200 flex items-center justify-center text-2xl font-bold text-gray-600">
-                {getInitials(session.user.name)}
-              </div>
-            )}
+              <IoPersonCircleOutline className="text-8xl text-gray-400" />
           </div>
           
           {/* Información básica */}

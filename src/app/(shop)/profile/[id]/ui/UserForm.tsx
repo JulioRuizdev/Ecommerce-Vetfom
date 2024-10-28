@@ -7,6 +7,7 @@ import { createUpdateUserProfile } from '@/actions';
 import { useForm } from "react-hook-form";
 import { User, UserImage as UserWithImage } from "@/interfaces";
 import { useSession } from "next-auth/react";
+import { IoPersonCircleOutline } from "react-icons/io5";
 
 interface Props {
     user: Partial<User> & { UserImage?: UserWithImage[]};
@@ -96,17 +97,8 @@ export const UserForm = ({ user }: Props) => {
       <form onSubmit={handleSubmit(onSubmit)} className="max-w-xl mx-auto mt-8 bg-white rounded-lg shadow-lg overflow-hidden">
         <div className="p-6 border-b flex flex-col items-center">
           <div className="relative mb-4">
-            {user.UserImage && user.UserImage.length > 0 ? (
-              <img 
-                src={user.UserImage[0].url} 
-                alt={user.name}
-                className="w-24 h-24 rounded-full object-cover border-2 border-gray-200"
-              />
-            ) : (
-              <div className="w-24 h-24 rounded-full bg-gray-200 flex items-center justify-center text-2xl font-bold text-gray-600">
-                {user.name?.[0] || ''}
-              </div>
-            )}
+          {/* Avatar */}
+                <IoPersonCircleOutline className="text-8xl text-gray-400" />
           </div>
           <input
             {...register("name", { required: "El nombre es obligatorio" })}
