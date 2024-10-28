@@ -140,23 +140,31 @@ export const UserForm = ({ user }: Props) => {
                             placeholder="Confirmar nueva contraseña"
                         />
                     </div>
-                    <div className="text-gray-600">
+                    {/* para poner imagenes mas adelante talvez */}
+                    {/* <div className="text-gray-600">
                         <input
                             {...register("image")}
                             type="file"
                             className="w-full p-2 border rounded"
                         />
-                    </div>
+                    </div> */}
                 </div>
                 <div className="px-6 py-4 bg-gray-50 border-t">
-                    <div className="flex justify-center">
-                        <button
-                            type="submit"
-                            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-                            disabled={isSubmitting}
-                        >
-                            {isSubmitting ? 'Guardando...' : 'Guardar cambios'}
-                        </button>
+                    <div className="flex justify-between">
+                      <button
+                        type="button"
+                        className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded"
+                        onClick={() => router.push('/profile')}
+                      >
+                        Volver al perfil
+                      </button>
+                      <button
+                        type="submit"
+                        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                        disabled={isSubmitting}
+                      >
+                        {isSubmitting ? 'Guardando...' : 'Guardar cambios'}
+                      </button>
                     </div>
                     {errors.root && <p className="text-red-500 text-center mt-2">{errors.root.message}</p>}
                 </div>
