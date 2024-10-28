@@ -11,15 +11,9 @@ export default async function ProfilePage() {
     redirect('/');
   }
 
-  // Función para obtener las iniciales del nombre
   const getInitials = (name: string | null | undefined): string => {
     if (!name) return '??';
-    
-    return name
-      .split(' ')
-      .map(word => word[0])
-      .join('')
-      .toUpperCase();
+    return name.split(' ').map(word => word[0]).join('').toUpperCase();
   };
 
   return (
@@ -30,9 +24,17 @@ export default async function ProfilePage() {
       <div className="max-w-xl mx-auto mt-8 bg-white rounded-lg shadow-lg overflow-hidden">
         {/* Header del perfil */}
         <div className="p-6 border-b flex flex-col items-center">
-          {/* Avatar */}
+          {/* Avatar del usuario o iniciales */}
           <div className="relative mb-4">
+            {session.user.image ? (
+              <img 
+                src={session.user.image} 
+                alt="User Profile" 
+                className="w-24 h-24 rounded-full object-cover"
+              />
+            ) : (
               <IoPersonCircleOutline className="text-8xl text-gray-400" />
+            )}
           </div>
           
           {/* Información básica */}
@@ -44,7 +46,6 @@ export default async function ProfilePage() {
         
         {/* Contenido del perfil */}
         <div className="p-6 space-y-4 text-center">
-          {/* Email */}
           <div className="text-gray-600">
             <span className="font-semibold">Email: </span>{session.user.email}
           </div>

@@ -1,8 +1,9 @@
-'use server';
+"use server";
 
 import prisma from '@/lib/prisma';
 import bcrypt from 'bcryptjs';
 import { auth } from '@/auth.config';
+import { revalidatePath } from 'next/cache';
 
 export const createOrUpdateProfile = async (formData: FormData) => {
     const session = await auth();
@@ -12,15 +13,12 @@ export const createOrUpdateProfile = async (formData: FormData) => {
 
     const userId = session.user.id;
 
-    console.log('ID del usuario de la sesión:', userId); // Para depuración
-
     const name = formData.get('name') as string;
     const email = formData.get('email') as string;
     const currentPassword = formData.get('currentPassword') as string;
     const newPassword = formData.get('newPassword') as string;
 
     try {
-        // Verificar la contraseña actual
         const user = await prisma.user.findUnique({ where: { id: userId } });
         if (!user) {
             return { ok: false, message: 'Usuario no encontrado' };
@@ -33,19 +31,18 @@ export const createOrUpdateProfile = async (formData: FormData) => {
             }
         }
 
-        // Preparar datos para actualizar
         const updateData: any = { name, email };
         if (newPassword) {
             updateData.password = await bcrypt.hash(newPassword, 10);
         }
 
-        // Actualizar usuario
         const updatedUser = await prisma.user.update({
             where: { id: userId },
             data: updateData,
         });
 
-        console.log('Usuario actualizado:', updatedUser); // Para depuración
+        // Revalida la ruta de perfil del usuario
+        revalidatePath(`/profile/`);
 
         return {
             ok: true,
@@ -53,7 +50,7 @@ export const createOrUpdateProfile = async (formData: FormData) => {
                 id: updatedUser.id,
                 name: updatedUser.name,
                 email: updatedUser.email,
-                image: updatedUser.image,
+                image: null,
             },
         };
     } catch (error) {
