@@ -6,7 +6,7 @@ import { Title } from "@/components";
 import { redirect } from "next/navigation";
 import Link from "next/link";
 import { IoPersonCircleOutline } from "react-icons/io5";
-import { revalidatePath } from 'next/cache';
+// import { revalidatePath } from 'next/cache';
 
 export default async function ProfilePage() {
   const session = await auth();
