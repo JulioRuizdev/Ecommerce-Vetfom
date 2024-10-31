@@ -36,6 +36,8 @@ import {deleteProfileImage} from './profile/delete-profile-image';
 import {getOrderByMonth} from './order/get-order-by-month';
 import { getUserById } from './profile/get-user-by-id';
 
+import {getUserData, updateUserData} from './user/user.actions';
+
 
 
 export {
@@ -63,6 +65,8 @@ export {
     deleteProfileImage,
     createOrUpdateProfile,
     getOrderByMonth,
-    getUserById
+    getUserById,
+    getUserData,
+    updateUserData
 
 };

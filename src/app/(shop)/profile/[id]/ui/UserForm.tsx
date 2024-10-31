@@ -1,108 +1,144 @@
-// src/app/(shop)/profile/edit/ProfileForm.tsx
-'use client';
+'use client'
 
-import { useState } from 'react';
-import { useRouter } from 'next/navigation';
-import { createOrUpdateProfile } from '@/actions';
+import { getUserData, updateUserData } from '@/actions';
+import { useSession } from 'next-auth/react';
+import { useState, useEffect } from 'react';
+import Link from 'next/link';
 
-interface User {
-  id: string;
+interface UserFormData {
   name: string;
   email: string;
+  currentPassword?: string;
+  newPassword?: string;
 }
 
-interface Props {
-  user: User;
-}
+export const ProfileForm = () => {
+  const { data: session } = useSession();
+  const [userData, setUserData] = useState<UserFormData>({
+    name: '',
+    email: '',
+    currentPassword: '',
+    newPassword: '',
+  });
+  const [isLoading, setIsLoading] = useState(true);
 
-export const ProfileForm = ({ user }: Props) => {
-  const router = useRouter();
-  const [error, setError] = useState('');
-  const [loading, setLoading] = useState(false);
+  useEffect(() => {
+    const loadUserData = async () => {
+      if (session?.user?.email) {
+        try {
+          const data = await getUserData(session.user.email);
+          if (data) {
+            setUserData({
+              name: data.name,
+              email: data.email,
+              currentPassword: '',
+              newPassword: '',
+            });
+          }
+        } catch (error) {
+          console.error('Error:', error);
+        } finally {
+          setIsLoading(false);
+        }
+      }
+    };
 
-  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    loadUserData();
+  }, [session]);
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setLoading(true);
-    setError('');
+    if (!session?.user?.email) return;
 
     try {
-      const formData = new FormData(e.currentTarget);
-      const result = await createOrUpdateProfile(formData);
+      // Solo incluimos las contraseñas si ambos campos están llenos
+      const dataToUpdate = {
+        name: userData.name,
+        email: userData.email,
+        ...(userData.currentPassword && userData.newPassword ? {
+          currentPassword: userData.currentPassword,
+          newPassword: userData.newPassword,
+        } : {})
+      };
 
-      if (!result.ok) {
-        setError(result.message || 'Unknown error');
-        return;
-      }
-
-      // Forzar revalidación y redirección
-      router.refresh();
-      router.push('/profile');
+      await updateUserData(session.user.email, dataToUpdate);
+      alert('Perfil actualizado exitosamente');
+      
+      // Limpiar campos de contraseña después de actualizar
+      setUserData(prev => ({
+        ...prev,
+        currentPassword: '',
+        newPassword: '',
+      }));
     } catch (error) {
-      setError('Hubo un error al actualizar el perfil');
-    } finally {
-      setLoading(false);
+      console.error('Error al actualizar:', error);
+      alert('Error al actualizar el perfil');
     }
   };
 
+  if (isLoading) return <div>Cargando...</div>;
+
   return (
-    <form onSubmit={onSubmit} className="space-y-4">
-      {error && (
-        <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded">
-          {error}
-        </div>
-      )}
-      
+    <form onSubmit={handleSubmit} className="space-y-4">
       <div>
-        <label className="block text-sm font-medium text-gray-700">Nombre</label>
+        <label htmlFor="name">Nombre:</label>
         <input
           type="text"
-          name="name"
-          defaultValue={user.name}
-          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm"
-          required
+          id="name"
+          value={userData.name}
+          onChange={(e) => setUserData({ ...userData, name: e.target.value })}
+          className="border p-2 rounded w-full"
         />
       </div>
-
+      
       <div>
-        <label className="block text-sm font-medium text-gray-700">Email</label>
+        <label htmlFor="email">Email:</label>
         <input
           type="email"
-          name="email"
-          defaultValue={user.email}
-          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm"
-          required
+          id="email"
+          value={userData.email}
+          onChange={(e) => setUserData({ ...userData, email: e.target.value })}
+          className="border p-2 rounded w-full"
         />
       </div>
 
       <div>
-        <label className="block text-sm font-medium text-gray-700">
-          Contraseña actual (dejar en blanco si no desea cambiarla)
-        </label>
+        <label htmlFor="currentPassword">Contraseña Actual:</label>
         <input
           type="password"
-          name="currentPassword"
-          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm"
+          id="currentPassword"
+          value={userData.currentPassword}
+          onChange={(e) => setUserData({ ...userData, currentPassword: e.target.value })}
+          className="border p-2 rounded w-full"
         />
       </div>
 
       <div>
-        <label className="block text-sm font-medium text-gray-700">
-          Nueva contraseña
-        </label>
+        <label htmlFor="newPassword">Nueva Contraseña:</label>
         <input
           type="password"
-          name="newPassword"
-          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm"
+          id="newPassword"
+          value={userData.newPassword}
+          onChange={(e) => setUserData({ ...userData, newPassword: e.target.value })}
+          className="border p-2 rounded w-full"
         />
       </div>
 
-      <button
-        type="submit"
-        disabled={loading}
-        className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
-      >
-        {loading ? 'Actualizando...' : 'Actualizar perfil'}
-      </button>
+      <div className="flex justify-between gap-4 mt-6">
+        <button 
+          type="submit"
+          className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 flex-1"
+        >
+          Actualizar Perfil
+        </button>
+
+        <Link 
+          href="/profile"
+          className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 text-center flex-1"
+        >
+          Retroceder
+        </Link>
+      </div>
     </form>
   );
 };
