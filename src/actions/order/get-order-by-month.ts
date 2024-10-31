@@ -1,4 +1,4 @@
-// Supongamos que estás trabajando en un archivo en el lado del servidor (por ejemplo, `data.ts` o dentro del mismo componente con `use client`)
+// server side
 'use server'
 import prisma from "@/lib/prisma";
 
@@ -29,10 +29,38 @@ export const getOrderByMonth = async () => {
         return acc;
     }, {} as { [key: string]: number });
 
-    const formattedOrders = Object.keys(ordersByMonth).map(month => ({
-        name: new Date(month + '-01').toLocaleString('es-ES', { month: 'long', year: 'numeric' }),
-        Ventas: ordersByMonth[month],
-    }));
+    let bestMonth = { month: '', sales: 0 };
+    let worstMonth = { month: '', sales: Infinity };
+    let maxSale = 0;
 
-    return formattedOrders;
+    const formattedOrders = Object.keys(ordersByMonth).map(month => {
+        const sales = ordersByMonth[month];
+        
+        if (sales > bestMonth.sales) {
+            bestMonth = { month, sales };
+        }
+        if (sales < worstMonth.sales) {
+            worstMonth = { month, sales };
+        }
+        
+        return {
+            name: new Date(month + '-01').toLocaleString('es-ES', { month: 'long', year: 'numeric' }),
+            Ventas: sales,
+        };
+    });
+
+    maxSale = Math.max(...orders.map(order => order.total));
+
+    return {
+        chartData: formattedOrders,
+        bestMonth: {
+            month: new Date(bestMonth.month + '-01').toLocaleString('es-ES', { month: 'long', year: 'numeric' }),
+            sales: bestMonth.sales,
+        },
+        worstMonth: {
+            month: new Date(worstMonth.month + '-01').toLocaleString('es-ES', { month: 'long', year: 'numeric' }),
+            sales: worstMonth.sales,
+        },
+        maxSale
+    };
 };
