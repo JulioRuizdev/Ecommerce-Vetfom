@@ -31,10 +31,10 @@ export default async function ProfilePage() {
     redirect('/');
   }
 
-  const getInitials = (name: string | null | undefined): string => {
-    if (!name) return '??';
-    return name.split(' ').map(word => word[0]).join('').toUpperCase();
-  };
+  // const getInitials = (name: string | null | undefined): string => {
+  //   if (!name) return '??';
+  //   return name.split(' ').map(word => word[0]).join('').toUpperCase();
+  // };
 
   return (
     <div className="container mx-auto px-4 py-8">
