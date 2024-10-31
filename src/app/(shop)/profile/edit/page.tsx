@@ -1,29 +1,26 @@
-import { getUserById } from "@/actions";
+// src/app/(shop)/profile/edit/page.tsx
+import { auth } from "@/auth.config";
 import { Title } from "@/components";
 import { redirect } from "next/navigation";
-import { UserForm } from "../[id]/ui/UserForm";
+import { ProfileForm } from "../[id]/ui/UserForm";
 
-interface Props {
-  params: {
-    id: string;
-  };
-}
 
-export default async function UserPage({ params }: Props) {
-  const { id } = params;
-  
-  const user = await getUserById(id);
+export default async function EditProfilePage() {
+  const session = await auth();
 
-  if (!user && id !== 'new') {
-    redirect('/profile');
+  if (!session?.user) {
+    redirect('/');
   }
 
-  const title = id === 'new' ? 'Nuevo Usuario' : 'Editar Usuario';
-
   return (
-    <>
-      <Title title={title} />
-      <UserForm user={user ?? {}} /> {/* Asegura que UserForm espera `images` */}
-    </>
+    <div className="container mx-auto px-4 py-8">
+      <Title title="Editar Perfil" />
+      
+      <div className="max-w-xl mx-auto mt-8 bg-white rounded-lg shadow-lg overflow-hidden">
+        <div className="p-6">
+          <ProfileForm user={session.user} />
+        </div>
+      </div>
+    </div>
   );
 }
