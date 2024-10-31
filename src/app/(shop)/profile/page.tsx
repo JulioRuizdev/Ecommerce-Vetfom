@@ -1,9 +1,12 @@
+export const revalidate = 0;
 // src/app/(shop)/profile/page.tsx
 import { auth } from "@/auth.config";
+import prisma from "@/lib/prisma";
 import { Title } from "@/components";
 import { redirect } from "next/navigation";
 import Link from "next/link";
 import { IoPersonCircleOutline } from "react-icons/io5";
+import { revalidatePath } from 'next/cache';
 
 export default async function ProfilePage() {
   const session = await auth();
@@ -12,7 +15,21 @@ export default async function ProfilePage() {
     redirect('/');
   }
 
-  const user = session.user;
+  // Obtener datos frescos directamente de la BD
+  const freshUser = await prisma.user.findUnique({
+    where: { id: session.user.id },
+    select: {
+      name: true,
+      email: true,
+      image: true,
+      role: true,
+      // Agrega otros campos que necesites
+    }
+  });
+
+  if (!freshUser) {
+    redirect('/');
+  }
 
   const getInitials = (name: string | null | undefined): string => {
     if (!name) return '??';
@@ -29,9 +46,9 @@ export default async function ProfilePage() {
         <div className="p-6 border-b flex flex-col items-center">
           {/* Avatar del usuario o iniciales */}
           <div className="relative mb-4">
-            {user.image ? (
+            {freshUser.image ? (
               <img
-                src={user.image}
+                src={freshUser.image}
                 alt="User Profile"
                 className="w-24 h-24 rounded-full object-cover"
               />
@@ -41,16 +58,16 @@ export default async function ProfilePage() {
           </div>
 
           {/* Información básica */}
-          <h2 className="text-2xl font-bold text-gray-800 mb-1">{user.name}</h2>
+          <h2 className="text-2xl font-bold text-gray-800 mb-1">{freshUser.name}</h2>
           <span className="inline-block px-3 py-1 text-sm font-medium text-gray-600 bg-gray-100 rounded-full">
-            {user.role}
+            {freshUser.role}
           </span>
         </div>
 
         {/* Contenido del perfil */}
         <div className="p-6 space-y-4 text-center">
           <div className="text-gray-600">
-            <span className="font-semibold">Email: </span>{user.email}
+            <span className="font-semibold">Email: </span>{freshUser.email}
           </div>
         </div>
 

@@ -1,10 +1,10 @@
 // actions/auth-actions.ts
 "use server";
 
-import { revalidatePath } from 'next/cache';
 import bcrypt from 'bcryptjs';
 import prisma from '@/lib/prisma';
 import { auth } from '@/auth.config';
+import { revalidatePath } from 'next/cache';
 
 export const createOrUpdateProfile = async (formData: FormData) => {
   try {
@@ -52,10 +52,13 @@ export const createOrUpdateProfile = async (formData: FormData) => {
       where: { id: userId },
       data: updateData,
     });
-
-    // Revalidar las rutas necesarias
     revalidatePath('/profile');
+    revalidatePath('/admin/profile');
+    revalidatePath('/checkout');
+    revalidatePath('/checkout/address');
     revalidatePath('/');
+    
+    // Revalidar todas las rutas que muestran datos del usuario
     
     return {
       ok: true,
