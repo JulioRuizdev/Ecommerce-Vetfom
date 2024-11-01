@@ -24,10 +24,6 @@ export const authConfig: NextAuthConfig  = {
     }
   },
 
-
-
-
-
   providers: [
 
     Credentials({
