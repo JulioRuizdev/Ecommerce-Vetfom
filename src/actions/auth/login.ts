@@ -33,7 +33,7 @@ export const login = async(email:string, password:string) => {
     console.log(error);
     return {
       ok: false,
-      message: 'No se pudo iniciar sesion'
+      message: `No se pudo iniciar sesion ${error}`
     }
   }
 
