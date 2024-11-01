@@ -17,7 +17,7 @@ export async function authenticate(
     return 'Success'
 
   } catch (error) {
-      
+      console.log(error);
       return 'CredentialsSignin';
   }
 }
@@ -34,6 +34,7 @@ export const login = async(email:string, password:string) => {
     return {
       ok: false,
       message: `No se pudo iniciar sesion ${error}`
+
     }
   }
 
