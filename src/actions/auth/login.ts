@@ -1,6 +1,7 @@
 'use server';
  
 import { signIn } from '@/auth.config';
+import { sleep } from '@/utils';
 
  
 export async function authenticate(
@@ -12,7 +13,7 @@ export async function authenticate(
       ...Object.fromEntries(formData),
       redirect: false, 
     });
-    // await sleep(0.5);
+    await sleep(0.5);
     
     return 'Success'
 
