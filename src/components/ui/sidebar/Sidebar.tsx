@@ -19,10 +19,8 @@ export const Sidebar = () => {
 
     const onLogout = async () => {
         await logout();
-        router.refresh(); // Refresca la página para actualizar el estado de la sesión
-        router.push('/'); // Redirecciona a la página de inicio
-        closeMenu(); // Cierra el menú lateral
-    }
+        window.location.replace('/')
+     }
 
     return (
         <div>
@@ -138,3 +136,4 @@ export const Sidebar = () => {
         </div>
     );
 };
+

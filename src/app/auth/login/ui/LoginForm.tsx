@@ -3,33 +3,38 @@
 import { authenticate } from "@/actions";
 import clsx from "clsx";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import { useFormStatus } from "react-dom";
+import { useFormState, useFormStatus } from "react-dom";
 import { IoInformationOutline } from "react-icons/io5";
+import { useRouter } from 'next/navigation';
 
 export const LoginForm = () => {
   const router = useRouter();
-  const [state, setState] = useState<string | undefined>(undefined);
+  const [state, dispatch] = useFormState(authenticate, undefined);
   const [error, setError] = useState<string | null>(null);
+  const [isRedirecting, setIsRedirecting] = useState(false);
 
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    setError(null);
-
-    const formData = new FormData(event.currentTarget);
-    const authState = await authenticate(undefined, formData);
-
-    setState(authState);
-    if (authState === 'Success') {
-      router.replace('/');
-    } else {
+  useEffect(() => {
+    if (state === 'Success' && !isRedirecting) {
+      setIsRedirecting(true);
+      // Primero limpiamos cualquier error previo
+      setError(null);
+      
+      // Pequeño delay antes de la redirección
+      setTimeout(() => {
+        window.location.replace('/');
+      }, 100);
+    } else if (state === 'CredentialsSignin') {
       setError("Credenciales inválidas, verifica tu correo y contraseña");
+      setIsRedirecting(false);
     }
-  };
+  }, [state, router, isRedirecting]);
 
   return (
-    <form onSubmit={handleSubmit} className="flex flex-col">
+    <form action={async (formData: FormData) => {
+      setError(null); // Limpiar error al intentar nuevo submit
+      await dispatch(formData);
+    }} className="flex flex-col">
       <label htmlFor="email">Correo electrónico</label>
       <input
         className="px-5 py-2 border bg-gray-200 rounded mb-5"
@@ -59,9 +64,8 @@ export const LoginForm = () => {
         )}
       </div>
 
-      <LoginButton />
-      
-      {/* Divisor de línea */}
+      <LoginButton isRedirecting={isRedirecting} />
+
       <div className="flex items-center my-5">
         <div className="flex-1 border-t border-gray-500"></div>
         <div className="px-2 text-gray-800">O</div>
@@ -75,19 +79,19 @@ export const LoginForm = () => {
   );
 };
 
-function LoginButton() {
+function LoginButton({ isRedirecting }: { isRedirecting: boolean }) {
   const { pending } = useFormStatus();
 
   return (
     <button
       type="submit"
       className={clsx({
-        "btn-primary": !pending,
-        "btn-disabled": pending
+        "btn-primary": !pending && !isRedirecting,
+        "btn-disabled": pending || isRedirecting
       })}
-      disabled={pending}
+      disabled={pending || isRedirecting}
     >
-      Ingresar
+      {isRedirecting ? 'Ingresando...' : 'Ingresar'}
     </button>
   );
 }
