@@ -13,7 +13,7 @@ export default async function OrdersPage() {
   const {ok, users= []} = await getPaginatedUsers();
 
   if (!ok) {
-    redirect('/');
+    redirect('/auth/login');
   }
 
   return (
