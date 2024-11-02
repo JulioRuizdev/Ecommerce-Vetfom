@@ -2,7 +2,8 @@
 
 import { signOut } from "@/auth.config";
 
-export const logout = async() => {
+// Action de logout para manejar desde el servidor
+export const logout = async () => {
     await signOut();
-    window.location.replace('/');
-}
+    return { redirectUrl: '/' }; // Retorna la URL para redireccionar desde el cliente
+};

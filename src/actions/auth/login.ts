@@ -1,42 +1,45 @@
 'use server';
- 
+
 import { signIn } from '@/auth.config';
 import { sleep } from '@/utils';
 
- 
 export async function authenticate(
   prevState: string | undefined,
   formData: FormData,
 ) {
   try {
-    await signIn('credentials', {
+    const result = await signIn('credentials', {
       ...Object.fromEntries(formData),
       redirect: false, 
     });
     await sleep(0.5);
-    
-    return 'Success'
 
-  } catch (error) {
-      console.log(error);
+    // Si la autenticación es exitosa
+    if (result?.ok) {
+      return 'Success';
+    } else {
+      // En caso de error de credenciales
       return 'CredentialsSignin';
+    }
+  } catch (error) {
+    console.error("Error en authenticate:", error);
+    return 'CredentialsSignin';
   }
 }
 
-
-export const login = async(email:string, password:string) => {
-
+export const login = async (email: string, password: string) => {
   try {
-    await signIn('credentials', {email, password});
-
-    return {ok: true};
+    const result = await signIn('credentials', { email, password, redirect: false });
+    if (result?.ok) {
+      return { ok: true };
+    } else {
+      return { ok: false, message: 'Credenciales incorrectas' };
+    }
   } catch (error) {
-    console.log(error);
+    console.error("Error en login:", error);
     return {
       ok: false,
-      message: `No se pudo iniciar sesion ${error}`
-
-    }
+      message: `No se pudo iniciar sesión: ${error}`
+    };
   }
-
-}
+};
