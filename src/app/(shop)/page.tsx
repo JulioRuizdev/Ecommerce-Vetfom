@@ -5,6 +5,7 @@ import { getPaginatedProductsWithImages } from "@/actions";
 import { redirect } from "next/navigation";
 import { ToastContainer } from 'react-toastify'
 import "react-toastify/dist/ReactToastify.css"
+import Landbot from "@/components/bot/Landbot";
 
 
 interface Props{
@@ -41,6 +42,8 @@ export default async function Home( {searchParams}: Props ) {
     <Pagination totalPages={totalPages}/>
 
     <ToastContainer />
+
+    <Landbot />
     </>
 
 

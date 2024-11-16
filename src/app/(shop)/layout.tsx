@@ -20,6 +20,7 @@ export default function ShopLayout({
 
             <Footer />
             <ToastContainer />
+            
         </main>
     );
 }
